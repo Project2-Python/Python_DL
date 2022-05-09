@@ -3,8 +3,7 @@
 
 int main(){
 	
-	keyProsess(); 
-	
-	
+	keyProsess();
 	return 0;
+	
 }
