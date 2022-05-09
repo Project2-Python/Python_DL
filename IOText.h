@@ -37,6 +37,7 @@ void Inisialisasi();
 void Insertion(int data);
 void Print_Text();
 void setCursor();
+void keyProsess(); 
 
 
 #endif
