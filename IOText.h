@@ -6,7 +6,6 @@
 
 
 typedef struct node* address;
-
 typedef struct node
 {
 	char data;
@@ -37,7 +36,8 @@ void Inisialisasi();
 void Insertion(int data);
 void Print_Text();
 void setCursor();
-void keyProsess(); 
-
+void keyProsess();
+void Deletion();
+void swap(char tempfordel1, char tempfordel2);
 
 #endif
