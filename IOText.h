@@ -28,6 +28,17 @@ struct NotePad{
 
 static struct NotePad editor;
 
+enum KeyInput{
+	
+	ENTER = 13,
+	CTRL_S = 19,
+	CTRL_N = 14,
+	CTRL_Q = 17,
+	CTRL_C = 3,
+	CTRL_I = 9
+	
+};
+
 
 
 //Procedure And Function
@@ -36,9 +47,10 @@ void Inisialisasi();
 void Insertion(int data);
 void Print_Text();
 void setCursor();
-void keyProsess();
+void keyProsess(char filename[20]);
 void Deletion();
 void swap(char tempfordel1, char tempfordel2);
 void UpDownLink(address ptr, char key);
 void MoveCursor();
+
 #endif

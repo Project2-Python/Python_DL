@@ -1,4 +1,5 @@
 #include "IOText.h"
+#include "kelolafile.h"
 
 
 address Alokasi(){
@@ -140,8 +141,8 @@ void UpDownLink(address ptr, char key)
 		}
 	}
 	
-	void MoveCursor()
-	{
+void MoveCursor()
+{
 		char temp = _getch();
 		if ((int)temp == 77) 
 		{
@@ -179,7 +180,7 @@ void UpDownLink(address ptr, char key)
 				editor.cursor = editor.cursor->down;
 		}
 
-	}
+}
 
 void Print_Text()
 	{
@@ -219,7 +220,7 @@ void setCursor()
 		}
 	}
 
-void keyProsess(){
+void keyProsess(char filename[20]){
 	 char data;
 	
 	 editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -233,17 +234,19 @@ void keyProsess(){
 	  	system("cls");
 	  	Print_Text();
 	  	
-	  } else if(data == -32){
-	  	
+	  } 
+	  else if(data == -32){
 	  	MoveCursor();
-	  	
 	  }
-	  
-	  else {
+	  else if(data == CTRL_S){
+	  	saveFile(filename);
+	  } 
+	  else {	  	
 	  	
 	  Insertion(data);
-		system("cls");
-		Print_Text();
+	  system("cls");
+	  Print_Text();
+	  
 	  }
 		setCursor();
 	 }
@@ -298,4 +301,6 @@ void swap(char tempfordel1, char tempfordel2){
 	tempfordel2 = temp;
 	
 }
+
+
 
