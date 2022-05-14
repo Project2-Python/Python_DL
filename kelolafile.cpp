@@ -95,33 +95,14 @@ void openFile(){
 		
 	} 
 	
-	
 	system("cls");
 	while(!feof(fedit)){
-		c = fgetc(fedit);
-		if(c == -1){
-			break;
-		}
-		feditor = c;
-		printf("%c", feditor);
-		if(c == '\n'){
-			E.kolom = 0;
-			E.baris++;
-		} else {
-			E.kolom++;
-		}
-		if(E.kolom > MAXKOLOM){
-			printf("\n");
-			E.kolom = 0;
-			E.baris++;
-		}
-		if(E.baris > MAXBARIS){
-			break;
-		}
+		fscanf(fedit, "%c", &c);
+		Insertion(c);
 	}
+	
 	fclose(fedit);
- 	E.destcord.X = E.kolom;
- 	E.destcord.Y = E.baris;
+	Print_Text();
 	keyProsess(filename);
 }
 

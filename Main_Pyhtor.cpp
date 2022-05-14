@@ -8,6 +8,7 @@ int main()
 {
 	/* Proses Menampilkan awal app */
 	boxTampilanAwalApp();
+	Inisialisasi();
 	
 	/* Proses Insertion / Proses edit text */
 	system("cls");
@@ -16,8 +17,9 @@ int main()
 	
 	
 	createFile();
-	renameFile();
-	removeFile();
+//	renameFile();
+//	removeFile();
+//	openFile();
   
 	return 0;
 }
