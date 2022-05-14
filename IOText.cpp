@@ -80,7 +80,6 @@ void Insertion(int data)
 			}
 			tempformidinsert = tempformidinsert->right;
 		}
-		
 		if (tempformidinsert->right == NULL)
 		{
 			nodeBaru->left = tempformidinsert;
@@ -258,7 +257,8 @@ void setCursor()
 
 void keyProsess(char filename[20])
 {
-	 char data;
+
+	char data;
 	
 	/* Proses inisialisasi cursor */
 	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
