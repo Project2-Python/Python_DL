@@ -163,6 +163,7 @@ void UpDownLink(address node, char key)
 }
 
 	
+<<<<<<< HEAD
 void MoveCursor()
 {
 	char temp = _getch();
@@ -170,6 +171,13 @@ void MoveCursor()
 	if ((int)temp == 77)							// Right 
 	{
 		if (editor.cursor->right != NULL)
+=======
+void MoveCursor(){
+
+
+		char temp = _getch();
+		if ((int)temp == 77) 
+>>>>>>> f4244e6 (tambah lagi)
 		{
 			editor.cursor = editor.cursor->right;
 		}
@@ -253,17 +261,23 @@ void setCursor()
 		}
 	}
 
+<<<<<<< HEAD
 
 
 void keyProsess(char filename[20])
 {
 
 	char data;
+=======
+void keyProsess(){
+	 char data=NULL;
+>>>>>>> f4244e6 (tambah lagi)
 	
 	/* Proses inisialisasi cursor */
 	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
 	Inisialisasi(); 
 	
+<<<<<<< HEAD
 	while(1)
 	{ 
 		/* Proses memperbaharui posisi cursor */
@@ -294,6 +308,31 @@ void keyProsess(char filename[20])
 	  		Print_Text();
 	  	}
 		setCursor();
+=======
+	 while(1){
+	  SetConsoleCursorPosition(editor.hstdout, editor.destcord);
+	  data = _getch();
+	  if( data == '\b'){
+	  	Deletion();
+	  	system("cls");
+	  	Print_Text();
+
+	  } else if((int)data == (-32)){
+	  	
+	  	MoveCursor();
+	  }
+//	  else if(data == CTRL_S){
+//	  	saveFile(filename);
+//	  } 
+	  else {	  	
+	  	
+	  Insertion(data);
+	  system("cls");
+	  Print_Text();
+	  
+	  }
+	setCursor();
+>>>>>>> f4244e6 (tambah lagi)
 	}
 }
 
