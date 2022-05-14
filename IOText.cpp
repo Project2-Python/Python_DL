@@ -142,12 +142,9 @@ void UpDownLink(address ptr, char key)
 		}
 	}
 	
-void MoveCursor()
-<<<<<<< HEAD
-{
-=======
-	{
->>>>>>> 332ec9a5aca78564ff725219a848c9fa7c12f18e
+void MoveCursor(){
+
+
 		char temp = _getch();
 		if ((int)temp == 77) 
 		{
@@ -225,13 +222,8 @@ void setCursor()
 		}
 	}
 
-<<<<<<< HEAD
-void keyProsess(char filename[20]){
-	 char data;
-=======
 void keyProsess(){
 	 char data=NULL;
->>>>>>> 332ec9a5aca78564ff725219a848c9fa7c12f18e
 	
 	 editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
 	 Inisialisasi(); 
@@ -243,31 +235,20 @@ void keyProsess(){
 	  	Deletion();
 	  	system("cls");
 	  	Print_Text();
-	  	
-<<<<<<< HEAD
-	  } 
-	  else if(data == -32){
-=======
+
 	  } else if((int)data == (-32)){
 	  	
->>>>>>> 332ec9a5aca78564ff725219a848c9fa7c12f18e
 	  	MoveCursor();
 	  }
-	  else if(data == CTRL_S){
-	  	saveFile(filename);
-	  } 
+//	  else if(data == CTRL_S){
+//	  	saveFile(filename);
+//	  } 
 	  else {	  	
 	  	
-<<<<<<< HEAD
 	  Insertion(data);
 	  system("cls");
 	  Print_Text();
 	  
-=======
-	  	Insertion(data);
-		system("cls");
-		Print_Text();
->>>>>>> 332ec9a5aca78564ff725219a848c9fa7c12f18e
 	  }
 	setCursor();
 	}
