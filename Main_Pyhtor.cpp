@@ -1,5 +1,7 @@
 #include "IOText.h"
 #include "tampilanUI.h"
+#include "kelolafile.h"
+
 
 
 int main()
@@ -12,6 +14,9 @@ int main()
 	color(7);
 	keyProsess();
 	
+	
+	createFile();
+  
 	return 0;
 	
 }

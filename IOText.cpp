@@ -1,5 +1,6 @@
 #include "IOText.h"
 #include "tampilanUI.h"
+#include "kelolafile.h"
 
 
 address Alokasi()
@@ -253,10 +254,11 @@ void setCursor()
 		}
 	}
 
-void keyProsess()
+
+
+void keyProsess(char filename[20])
 {
-	/* Kamus Data Lokal */
-	char data=NULL;
+	 char data;
 	
 	/* Proses inisialisasi cursor */
 	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -282,13 +284,15 @@ void keyProsess()
 		{
 			MoveCursor();
 	  	}
-		else 
-		{
-			Insertion(data);
-			system("cls");
-			Print_Text();
+		else if(data == CTRL_S){
+	  		saveFile(filename);
+	 	} 
+	  	else 
+		{	  	
+	  		Insertion(data);
+	  		system("cls");
+	  		Print_Text();
 	  	}
-	  	
 		setCursor();
 	}
 }
@@ -342,4 +346,6 @@ void swap(char *tempfordel1, char *tempfordel2){
 	*tempfordel2 = temp;
 	
 }
+
+
 
