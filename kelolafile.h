@@ -6,8 +6,8 @@
 #include <windows.h>
 #include "IOText.h"
 
-//void createFile();
-void saveFile(address* AwalNotepad);
+void createFile();
+void saveFile(address* AwalNotepad, char filename[20]);
 
 #endif
 

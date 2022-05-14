@@ -262,6 +262,7 @@ void setCursor()
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 void keyProsess(char filename[20])
@@ -272,6 +273,11 @@ void keyProsess(char filename[20])
 void keyProsess(){
 	 char data=NULL;
 >>>>>>> f4244e6 (tambah lagi)
+=======
+void keyProsess(char filename[20]){
+	 char data=NULL;
+
+>>>>>>> 1d5f037 (CreatedanSavefile Berhasil)
 	
 	/* Proses inisialisasi cursor */
 	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -322,7 +328,7 @@ void keyProsess(){
 	  	MoveCursor();
 	  }
 	  else if(data == CTRL_S){
-	  	saveFile(&editor.head_of_notepad);
+	  	saveFile(&editor.head_of_notepad, filename);
 	  } 
 	  else {	  	
 	  	
