@@ -39,4 +39,90 @@ void saveFile(address* AwalNotepad, char filename[20])
 		fclose(fp);
 }
 
+void removeFile(){
+	
+	FILE *fp;
+	int status;
+	char filename[20];
+	printf("\t\tMasukan Nama File :");
+	scanf("%s",filename);
+	status=remove(filename);
+	if(status!= 0){
+	printf("\t\tFile Tidak Terhapus");
+	}else{
+	printf("\t\tFile Terhapus");
+	}
+}
+
+void renameFile()
+{
+    char oldName[100], newName[100];
+	char filename[20];
+    
+    printf("\t\tMasukan nama file yang ingin diubah: ");
+    scanf("%s", oldName);
+
+    printf("\t\tMasukkan nama baru untuk file ini: ");
+    scanf("%s", newName);
+
+    if (rename(oldName, newName) == 0)
+    {
+    printf("\t\tNama file berhasil diubah.\n");
+    }
+    else
+    {
+    printf("\t\tError! Tidak dapat mengganti nama file ini.\n");
+    }
+ 	printf("\t\t"); system("pause");
+ 
+}
+
+void openFile(){
+	
+	FILE *fedit;
+	char c, filename[20];
+	address feditor;
+	
+	printf("\t\tNama file : ");
+	scanf("%s", filename);
+	
+	fedit = fopen(filename,"r");
+	if(fedit == NULL)
+	{
+		
+		printf("\t\tFile tidak ada");
+		system("\t\tpause");
+		
+	} 
+	
+	
+	system("cls");
+	while(!feof(fedit)){
+		c = fgetc(fedit);
+		if(c == -1){
+			break;
+		}
+		feditor = c;
+		printf("%c", feditor);
+		if(c == '\n'){
+			E.kolom = 0;
+			E.baris++;
+		} else {
+			E.kolom++;
+		}
+		if(E.kolom > MAXKOLOM){
+			printf("\n");
+			E.kolom = 0;
+			E.baris++;
+		}
+		if(E.baris > MAXBARIS){
+			break;
+		}
+	}
+	fclose(fedit);
+ 	E.destcord.X = E.kolom;
+ 	E.destcord.Y = E.baris;
+	keyProsess(filename);
+}
+
 

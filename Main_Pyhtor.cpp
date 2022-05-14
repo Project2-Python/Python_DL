@@ -16,6 +16,8 @@ int main()
 	
 	
 	createFile();
+	renameFile();
+	removeFile();
   
 	return 0;
 }
