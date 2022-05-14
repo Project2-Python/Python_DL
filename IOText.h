@@ -38,7 +38,7 @@ void Print_Text();
 void setCursor();
 void keyProsess();
 void Deletion();
-void swap(char tempfordel1, char tempfordel2);
+void swap(char *tempfordel1, char *tempfordel2);
 void UpDownLink(address ptr, char key);
 void MoveCursor();
 #endif

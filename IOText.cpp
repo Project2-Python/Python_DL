@@ -1,6 +1,7 @@
 #include "IOText.h"
 
 
+
 address Alokasi(){
 	
 	address AlokasiNode;
@@ -35,12 +36,11 @@ void Inisialisasi(){
 
 void Insertion(int data){
 	
-	address ptr = Alokasi();
+address ptr = Alokasi();
 		if (data == '\r')
 			ptr->data = '\n';
 		else
 			ptr->data = data;
-			
 		if (editor.head_of_notepad == NULL)
 		{
 			address temp = Alokasi();
@@ -51,22 +51,23 @@ void Insertion(int data){
 			ptr->left = temp;
 			editor.head_of_notepad = temp;
 			editor.cursor = ptr;
-		} 
-		else if (editor.cursor->right!=nullptr)
+		}
+		else if (editor.cursor->right!=NULL)
 		{
 			address tempformidinsert = editor.cursor->right;
 			ptr->linehead = editor.cursor->linehead;
 			while (tempformidinsert->data != '\n')
 			{
-				swap(ptr->data, tempformidinsert->data);
-				if (tempformidinsert->right == nullptr)
+				swap(&ptr->data, &tempformidinsert->data);
+				if (tempformidinsert->right == NULL)
 					break;
 				tempformidinsert = tempformidinsert->right;
 			}
-			if (tempformidinsert->right == nullptr)
+			if (tempformidinsert->right == NULL)
 			{
+				
 				ptr->left = tempformidinsert;
-				ptr->right = nullptr;
+				ptr->right = NULL;
 				tempformidinsert->right = ptr;
 				editor.cursor = editor.cursor->right;
 			}
@@ -79,7 +80,6 @@ void Insertion(int data){
 				editor.cursor = editor.cursor->right;
 			}
 		}
-
 		else
 		{
 			address temp = editor.head_of_notepad;
@@ -102,8 +102,9 @@ void Insertion(int data){
 			}
 			editor.cursor = ptr;
 		}
-		
+		//call setupdown function
 		UpDownLink(ptr, ptr->data);
+	
 }
 
 void UpDownLink(address ptr, char key)
@@ -140,7 +141,7 @@ void UpDownLink(address ptr, char key)
 		}
 	}
 	
-	void MoveCursor()
+void MoveCursor()
 	{
 		char temp = _getch();
 		if ((int)temp == 77) 
@@ -220,20 +221,20 @@ void setCursor()
 	}
 
 void keyProsess(){
-	 char data;
+	 char data=NULL;
 	
 	 editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
 	 Inisialisasi(); 
 	
 	 while(1){
 	  SetConsoleCursorPosition(editor.hstdout, editor.destcord);
-	  data = getch();
+	  data = _getch();
 	  if( data == '\b'){
 	  	Deletion();
 	  	system("cls");
 	  	Print_Text();
 	  	
-	  } else if(data == -32){
+	  } else if((int)data == (-32)){
 	  	
 	  	MoveCursor();
 	  	
@@ -241,12 +242,12 @@ void keyProsess(){
 	  
 	  else {
 	  	
-	  Insertion(data);
+	  	Insertion(data);
 		system("cls");
 		Print_Text();
 	  }
-		setCursor();
-	 }
+	setCursor();
+	}
 }
 
 void Deletion()
@@ -271,7 +272,7 @@ void Deletion()
 			editor.cursor = editor.cursor->left;
 			while (tempfordel->right->data != '\n') 
 			{
-				swap(tempfordel->data, tempfordel->right->data);
+				swap(&tempfordel->data, &tempfordel->right->data);
 				tempfordel = tempfordel->right;
 				if (tempfordel->right == NULL)
 					break;
@@ -290,12 +291,12 @@ void Deletion()
 		}
 	}
 	
-void swap(char tempfordel1, char tempfordel2){
+void swap(char *tempfordel1, char *tempfordel2){
 	
 	char temp;
-	temp = tempfordel1;
-	tempfordel1 = tempfordel2;
-	tempfordel2 = temp;
+	temp = *tempfordel1;
+	*tempfordel1 = *tempfordel2;
+	*tempfordel2 = temp;
 	
 }
 
