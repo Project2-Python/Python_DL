@@ -1,7 +1,18 @@
 #include "IOText.h"
 
 
+void gotoxy(int x, int y)
+{
+    HANDLE hConsoleOutput;
+    COORD dwCursorPosition;
+//    cout.flush();
+    dwCursorPosition.X = x;
+    dwCursorPosition.Y = y;
+    hConsoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleCursorPosition(hConsoleOutput,dwCursorPosition);
+}
 
+//
 address Alokasi(){
 	
 	address AlokasiNode;
@@ -31,16 +42,23 @@ void Inisialisasi(){
 	editor.cursor = NULL;
 	editor.destcord.X = 0;
 	editor.destcord.Y = 0;
+	editor.x=0;
+	editor.y=10;
 	
 }
 
 void Insertion(int data){
 	
-address ptr = Alokasi();
-		if (data == '\r')
+	address ptr = Alokasi();
+		if (data == '\r'){
+		
 			ptr->data = '\n';
-		else
+			editor.y++;
+	}
+		else{
 			ptr->data = data;
+		}
+			
 		if (editor.head_of_notepad == NULL)
 		{
 			address temp = Alokasi();
@@ -51,23 +69,22 @@ address ptr = Alokasi();
 			ptr->left = temp;
 			editor.head_of_notepad = temp;
 			editor.cursor = ptr;
-		}
-		else if (editor.cursor->right!=NULL)
+		} 
+		else if (editor.cursor->right!=nullptr)
 		{
 			address tempformidinsert = editor.cursor->right;
 			ptr->linehead = editor.cursor->linehead;
 			while (tempformidinsert->data != '\n')
 			{
-				swap(&ptr->data, &tempformidinsert->data);
-				if (tempformidinsert->right == NULL)
+				swap(ptr->data, tempformidinsert->data);
+				if (tempformidinsert->right == nullptr)
 					break;
 				tempformidinsert = tempformidinsert->right;
 			}
-			if (tempformidinsert->right == NULL)
+			if (tempformidinsert->right == nullptr)
 			{
-				
 				ptr->left = tempformidinsert;
-				ptr->right = NULL;
+				ptr->right = nullptr;
 				tempformidinsert->right = ptr;
 				editor.cursor = editor.cursor->right;
 			}
@@ -80,6 +97,7 @@ address ptr = Alokasi();
 				editor.cursor = editor.cursor->right;
 			}
 		}
+
 		else
 		{
 			address temp = editor.head_of_notepad;
@@ -102,9 +120,8 @@ address ptr = Alokasi();
 			}
 			editor.cursor = ptr;
 		}
-		//call setupdown function
+		
 		UpDownLink(ptr, ptr->data);
-	
 }
 
 void UpDownLink(address ptr, char key)
@@ -141,7 +158,7 @@ void UpDownLink(address ptr, char key)
 		}
 	}
 	
-void MoveCursor()
+	void MoveCursor()
 	{
 		char temp = _getch();
 		if ((int)temp == 77) 
@@ -187,13 +204,14 @@ void Print_Text()
 		address ptr = editor.head_of_notepad;
 		while (ptr != NULL)
 		{
-			if (ptr->data == '\0')
+			if (ptr->data == '\0'){
 				printf("");
-			else
-			{
+				}else
+				{	
 				printf("%c",ptr->data);
-			}
-				
+//				hitungkata+=1;
+//				ShowWord(hitungkata);
+				}
 			ptr = ptr->right;
 		}
 }
@@ -209,6 +227,7 @@ void setCursor()
 			{
 				editor.destcord.X = 0;
 				editor.destcord.Y++;
+			
 			}
 			else
 			{
@@ -221,20 +240,21 @@ void setCursor()
 	}
 
 void keyProsess(){
-	 char data=NULL;
+	 char data;
 	
 	 editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
-	 Inisialisasi(); 
+	 Inisialisasi();
+	  
 	
 	 while(1){
 	  SetConsoleCursorPosition(editor.hstdout, editor.destcord);
-	  data = _getch();
+	  data = getch();
 	  if( data == '\b'){
 	  	Deletion();
 	  	system("cls");
 	  	Print_Text();
 	  	
-	  } else if((int)data == (-32)){
+	  } else if(data == -32){
 	  	
 	  	MoveCursor();
 	  	
@@ -242,12 +262,13 @@ void keyProsess(){
 	  
 	  else {
 	  	
-	  	Insertion(data);
+	  Insertion(data);
 		system("cls");
 		Print_Text();
 	  }
-	setCursor();
-	}
+		ShowWord();
+		setCursor();
+	 }
 }
 
 void Deletion()
@@ -272,7 +293,7 @@ void Deletion()
 			editor.cursor = editor.cursor->left;
 			while (tempfordel->right->data != '\n') 
 			{
-				swap(&tempfordel->data, &tempfordel->right->data);
+				swap(tempfordel->data, tempfordel->right->data);
 				tempfordel = tempfordel->right;
 				if (tempfordel->right == NULL)
 					break;
@@ -291,12 +312,27 @@ void Deletion()
 		}
 	}
 	
-void swap(char *tempfordel1, char *tempfordel2){
+void swap(char tempfordel1, char tempfordel2){
 	
 	char temp;
-	temp = *tempfordel1;
-	*tempfordel1 = *tempfordel2;
-	*tempfordel2 = temp;
+	temp = tempfordel1;
+	tempfordel1 = tempfordel2;
+	tempfordel2 = temp;
 	
+}
+void ShowWord(){
+	int hitung=0;
+	address ptr = editor.head_of_notepad;
+		while (ptr != NULL)
+		{
+			if (ptr->data == 32|| ptr->data=='\0'||ptr->data=='\n'){
+				}else{
+				hitung +=1;	
+				gotoxy(editor.x,editor.y);
+				printf("Jumlah Huruf:%d",hitung);
+					
+				}
+			ptr = ptr->right;
+		}
 }
 

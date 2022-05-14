@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
+#define nullptr NULL
 
 
 typedef struct node* address;
@@ -19,6 +20,7 @@ typedef struct node
 
 struct NotePad{
 	
+	int x,y;
 	address head_of_notepad;
 	address cursor;
 	HANDLE hstdout;
@@ -26,19 +28,26 @@ struct NotePad{
 	
 };
 
+
+
 static struct NotePad editor;
 
 
 
 //Procedure And Function
 address Alokasi();
+void gotoxy();
 void Inisialisasi();
 void Insertion(int data);
 void Print_Text();
 void setCursor();
 void keyProsess();
 void Deletion();
-void swap(char *tempfordel1, char *tempfordel2);
+void swap(char tempfordel1, char tempfordel2);
 void UpDownLink(address ptr, char key);
 void MoveCursor();
+void ShowWord();
+
+
+
 #endif
