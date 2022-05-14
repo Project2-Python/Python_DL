@@ -10,7 +10,7 @@ void createFile();
 void saveFile(address* AwalNotepad, char filename[20]);
 void removeFile();
 void renameFile();
-
+void openFile();
 #endif
 
 

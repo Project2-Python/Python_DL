@@ -227,7 +227,7 @@ void keyProsess(char filename[20]){
 
 	
 	 editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
-	 Inisialisasi(); 
+	  
 	
 	 while(1){
 	  SetConsoleCursorPosition(editor.hstdout, editor.destcord);

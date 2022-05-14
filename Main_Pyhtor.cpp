@@ -4,10 +4,11 @@
 
 int main(){
 	
-	
+	Inisialisasi();
 	createFile();
-	renameFile();
-	removeFile();
+//	renameFile();
+//	removeFile();
+//	openFile();
   
 	return 0;
 }
