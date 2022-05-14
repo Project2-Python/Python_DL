@@ -14,9 +14,7 @@ int main()
 	color(7);
 	keyProsess();
 	
-	
-	createFile();
+	keyProsess();
   
 	return 0;
-	
 }

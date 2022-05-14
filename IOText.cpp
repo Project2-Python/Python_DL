@@ -321,9 +321,9 @@ void keyProsess(){
 	  	
 	  	MoveCursor();
 	  }
-//	  else if(data == CTRL_S){
-//	  	saveFile(filename);
-//	  } 
+	  else if(data == CTRL_S){
+	  	saveFile(&editor.head_of_notepad);
+	  } 
 	  else {	  	
 	  	
 	  Insertion(data);
