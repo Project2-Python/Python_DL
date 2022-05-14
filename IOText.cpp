@@ -51,6 +51,33 @@ void Insertion(int data){
 			ptr->left = temp;
 			editor.head_of_notepad = temp;
 			editor.cursor = ptr;
+		} 
+		else if (editor.cursor->right!=nullptr)
+		{
+			address tempformidinsert = editor.cursor->right;
+			ptr->linehead = editor.cursor->linehead;
+			while (tempformidinsert->data != '\n')
+			{
+				swap(ptr->data, tempformidinsert->data);
+				if (tempformidinsert->right == nullptr)
+					break;
+				tempformidinsert = tempformidinsert->right;
+			}
+			if (tempformidinsert->right == nullptr)
+			{
+				ptr->left = tempformidinsert;
+				ptr->right = nullptr;
+				tempformidinsert->right = ptr;
+				editor.cursor = editor.cursor->right;
+			}
+			else
+			{
+				ptr->left = tempformidinsert->left;
+				ptr->left->right = ptr;
+				ptr->right = tempformidinsert;
+				tempformidinsert->left = ptr;
+				editor.cursor = editor.cursor->right;
+			}
 		}
 
 		else
@@ -75,7 +102,84 @@ void Insertion(int data){
 			}
 			editor.cursor = ptr;
 		}
+		
+		UpDownLink(ptr, ptr->data);
 }
+
+void UpDownLink(address ptr, char key)
+	{
+		if (key != '\n')
+		{
+			if (ptr->left->up != nullptr)
+			{
+				if (ptr->left->up->right == ptr->linehead)
+					ptr->up = nullptr;
+				else
+				{
+					ptr->up = ptr->left->up->right;
+					ptr->up->down = ptr;
+				}
+			}
+			else
+			{
+				ptr->up = nullptr;
+				if (ptr->left->down != nullptr )
+					if(ptr->left->down->right!=nullptr)
+						if (ptr->left->down->right->data != '\n')
+						{
+							ptr->down = ptr->left->down->right;
+							ptr->down->up = ptr;
+						}
+			}
+				
+		}
+		else
+		{
+			ptr->up = ptr->left->linehead;
+			ptr->up->down = ptr;
+		}
+	}
+	
+	void MoveCursor()
+	{
+		char temp = _getch();
+		if ((int)temp == 77) 
+		{
+			if (editor.cursor->right!=nullptr)
+				editor.cursor = editor.cursor->right;
+		}
+		else if ((int)temp == 72) 
+		{
+			if (editor.cursor->up == nullptr)
+			{
+				//node* temppointer = cursor;
+				while (editor.cursor->up == nullptr && editor.cursor!=editor.cursor->linehead)
+				{
+					editor.cursor = editor.cursor->left;
+				}
+			}
+			if(editor.cursor!=editor.cursor->linehead)
+				editor.cursor = editor.cursor->up;
+		}
+		else if ((int)temp == 75) 
+		{
+			if (editor.cursor != editor.head_of_notepad && editor.cursor->left!=nullptr)
+				editor.cursor = editor.cursor->left;
+		}
+		else if ((int)temp == 80) 
+		{
+			if (editor.cursor->down == nullptr)
+			{
+				while (editor.cursor->down == nullptr && editor.cursor != editor.cursor->linehead)
+				{
+					editor.cursor = editor.cursor->left;
+				}
+			}
+			if (editor.cursor != editor.cursor->linehead)
+				editor.cursor = editor.cursor->down;
+		}
+
+	}
 
 void Print_Text()
 	{
@@ -129,7 +233,13 @@ void keyProsess(){
 	  	system("cls");
 	  	Print_Text();
 	  	
-	  } else {
+	  } else if(data == -32){
+	  	
+	  	MoveCursor();
+	  	
+	  }
+	  
+	  else {
 	  	
 	  Insertion(data);
 		system("cls");
@@ -188,3 +298,4 @@ void swap(char tempfordel1, char tempfordel2){
 	tempfordel2 = temp;
 	
 }
+
