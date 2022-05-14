@@ -4,7 +4,8 @@
 
 int main(){
 	
-	keyProsess();
+	
+	createFile();
   
 	return 0;
 }

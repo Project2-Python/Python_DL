@@ -222,8 +222,9 @@ void setCursor()
 		}
 	}
 
-void keyProsess(){
+void keyProsess(char filename[20]){
 	 char data=NULL;
+
 	
 	 editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
 	 Inisialisasi(); 
@@ -241,7 +242,7 @@ void keyProsess(){
 	  	MoveCursor();
 	  }
 	  else if(data == CTRL_S){
-	  	saveFile(&editor.head_of_notepad);
+	  	saveFile(&editor.head_of_notepad, filename);
 	  } 
 	  else {	  	
 	  	
