@@ -61,11 +61,11 @@ void Insertion(int data)
 		address temp = Alokasi();
 		temp->data = '\0';
 		temp->linehead = temp;
-		ptr->linehead = temp;
-		temp->right = nodeBarus;
+		nodeBaru->linehead = temp;
+		temp->right = nodeBaru;
 		nodeBaru->left = temp;
 		editor.head_of_notepad = temp;
-		editor.cursor = nodeBarus;
+		editor.cursor = nodeBaru;
 	}
 	else if (editor.cursor->right!=NULL)
 	{
@@ -260,8 +260,7 @@ void keyProsess(char filename[20])
 	char data;
 	
 	/* Proses inisialisasi cursor */
-	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
-	Inisialisasi(); 
+	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE); 
 	
 	while(1)
 	{ 
@@ -284,7 +283,7 @@ void keyProsess(char filename[20])
 			MoveCursor();
 	  	}
 		else if(data == CTRL_S){
-	  		saveFile(filename);
+	  		saveFile(&editor.head_of_notepad, filename);
 	 	} 
 	  	else 
 		{	  	

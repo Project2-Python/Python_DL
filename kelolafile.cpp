@@ -97,7 +97,11 @@ void openFile(){
 	
 	system("cls");
 	while(!feof(fedit)){
+		
 		fscanf(fedit, "%c", &c);
+		if(c == -1){
+			break;
+		}
 		Insertion(c);
 	}
 	

@@ -6,20 +6,19 @@
 
 int main()
 {
+	
 	/* Proses Menampilkan awal app */
 	boxTampilanAwalApp();
 	Inisialisasi();
 	
 	/* Proses Insertion / Proses edit text */
 	system("cls");
-	color(7);
-	keyProsess();
+	color(7);	
+	//createFile();
 	
-	
-	createFile();
 //	renameFile();
 //	removeFile();
-//	openFile();
+	openFile();
   
 	return 0;
 }
