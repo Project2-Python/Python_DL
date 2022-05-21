@@ -1,8 +1,10 @@
 #ifndef IOTEXT_H
 #define IOTEXT_H
+
 #include <stdio.h>
 #include <windows.h>
 #include <conio.h>
+
 
 
 typedef struct node* address;
@@ -29,7 +31,6 @@ struct NotePad{
 static struct NotePad editor;
 
 
-
 //Procedure And Function
 address Alokasi();
 void Inisialisasi();
@@ -41,4 +42,5 @@ void Deletion();
 void swap(char *tempfordel1, char *tempfordel2);
 void UpDownLink(address ptr, char key);
 void MoveCursor();
+
 #endif

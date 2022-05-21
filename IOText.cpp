@@ -1,201 +1,234 @@
 #include "IOText.h"
+#include "tampilanUI.h"
 
 
-
-address Alokasi(){
-	
+address Alokasi()
+{
+	/* Kamus Data Lokal */
 	address AlokasiNode;
 	
+	/* Proses mengalokasikan node ke memori */
 	AlokasiNode = (address)malloc(sizeof(TextEditor));
-	if(AlokasiNode != NULL){
-		
+	
+	/* Proses pengecekan apakah yang telah dialokasikan berhasil */
+	if(AlokasiNode != NULL)
+	{	
 		AlokasiNode->data = '\0';
 		AlokasiNode->right = NULL;
 		AlokasiNode->left = NULL;
 		AlokasiNode->up = NULL;
 		AlokasiNode->down = NULL;
-		AlokasiNode->linehead = NULL;
-		
-	} else {
-		
+		AlokasiNode->linehead = NULL;	
+	} 
+	else 
+	{	
 		return 0;
 	}
-	
 	return AlokasiNode;
-	
 }
 
-void Inisialisasi(){
-	
+
+void Inisialisasi()
+{	
 	editor.head_of_notepad = NULL;
 	editor.cursor = NULL;
 	editor.destcord.X = 0;
-	editor.destcord.Y = 0;
-	
+	editor.destcord.Y = 0;	
 }
 
-void Insertion(int data){
+
+void Insertion(int data)
+{
+	/* Kamus Data Lokal */
+	address nodeBaru; 
 	
-address ptr = Alokasi();
-		if (data == '\r')
-			ptr->data = '\n';
-		else
-			ptr->data = data;
-		if (editor.head_of_notepad == NULL)
+	/* Proses mengalokasikan node */	
+	nodeBaru = Alokasi();
+	
+	/* Proses pengecekan data yang diinputkan */
+	if (data == '\r')	// Enter
+	{
+		nodeBaru->data = '\n';
+	}
+	else
+	{
+		nodeBaru->data = data;
+	}	
+		
+	if (editor.head_of_notepad == NULL)
+	{
+		address temp = Alokasi();
+		temp->data = '\0';
+		temp->linehead = temp;
+		ptr->linehead = temp;
+		temp->right = nodeBarus;
+		nodeBaru->left = temp;
+		editor.head_of_notepad = temp;
+		editor.cursor = nodeBarus;
+	}
+	else if (editor.cursor->right!=NULL)
+	{
+		address tempformidinsert = editor.cursor->right;
+		nodeBaru->linehead = editor.cursor->linehead;
+		while (tempformidinsert->data != '\n')
 		{
-			address temp = Alokasi();
-			temp->data = '\0';
-			temp->linehead = temp;
-			ptr->linehead = temp;
-			temp->right = ptr;
-			ptr->left = temp;
-			editor.head_of_notepad = temp;
-			editor.cursor = ptr;
-		}
-		else if (editor.cursor->right!=NULL)
-		{
-			address tempformidinsert = editor.cursor->right;
-			ptr->linehead = editor.cursor->linehead;
-			while (tempformidinsert->data != '\n')
-			{
-				swap(&ptr->data, &tempformidinsert->data);
-				if (tempformidinsert->right == NULL)
-					break;
-				tempformidinsert = tempformidinsert->right;
-			}
+			swap(&nodeBaru->data, &tempformidinsert->data);
 			if (tempformidinsert->right == NULL)
 			{
-				
-				ptr->left = tempformidinsert;
-				ptr->right = NULL;
-				tempformidinsert->right = ptr;
-				editor.cursor = editor.cursor->right;
+				break;
 			}
-			else
-			{
-				ptr->left = tempformidinsert->left;
-				ptr->left->right = ptr;
-				ptr->right = tempformidinsert;
-				tempformidinsert->left = ptr;
-				editor.cursor = editor.cursor->right;
-			}
+			tempformidinsert = tempformidinsert->right;
+		}
+		
+		if (tempformidinsert->right == NULL)
+		{
+			nodeBaru->left = tempformidinsert;
+			nodeBaru->right = NULL;
+			tempformidinsert->right = nodeBaru;
+			editor.cursor = editor.cursor->right;
 		}
 		else
 		{
-			address temp = editor.head_of_notepad;
-			while (temp->right != NULL)
-			{
-				temp = temp->right;
-			}
-			if (data != '\r')
-			{
-				ptr->left = temp;
-				temp->right = ptr;
-				ptr->linehead = ptr->left->linehead;
-			}
-			else
-			{
-				ptr->data = '\n';
-				ptr->linehead = ptr;
-				ptr->left = temp;
-				temp->right = ptr;
-			}
-			editor.cursor = ptr;
+			nodeBaru->left = tempformidinsert->left;
+			nodeBaru->left->right = nodeBaru;
+			nodeBaru->right = tempformidinsert;
+			tempformidinsert->left = nodeBaru;
+			editor.cursor = editor.cursor->right;
 		}
-		//call setupdown function
-		UpDownLink(ptr, ptr->data);
-	
+	}
+	else
+	{
+		address temp = editor.head_of_notepad;
+		
+		while (temp->right != NULL)
+		{
+			temp = temp->right;
+		}
+		
+		if (data != '\r')
+		{
+			nodeBaru->left = temp;
+			temp->right = nodeBaru;
+			nodeBaru->linehead = nodeBaru->left->linehead;
+		}
+		else
+		{
+			nodeBaru->data = '\n';
+			nodeBaru->linehead = nodeBaru;
+			nodeBaru->left = temp;
+			temp->right = nodeBaru;
+		}
+		editor.cursor = nodeBaru;
+	}
+	UpDownLink(nodeBaru, nodeBaru->data);
 }
 
-void UpDownLink(address ptr, char key)
+
+void UpDownLink(address node, char key)
+{
+	if (key != '\n')
 	{
-		if (key != '\n')
+		if (node->left->up != NULL)
 		{
-			if (ptr->left->up != nullptr)
-			{
-				if (ptr->left->up->right == ptr->linehead)
-					ptr->up = nullptr;
-				else
-				{
-					ptr->up = ptr->left->up->right;
-					ptr->up->down = ptr;
-				}
+			if (node->left->up->right == node->linehead)
+			{	
+				node->up = NULL;
 			}
 			else
 			{
-				ptr->up = nullptr;
-				if (ptr->left->down != nullptr )
-					if(ptr->left->down->right!=nullptr)
-						if (ptr->left->down->right->data != '\n')
-						{
-							ptr->down = ptr->left->down->right;
-							ptr->down->up = ptr;
-						}
+				node->up = node->left->up->right;
+				node->up->down = node;
 			}
-				
 		}
 		else
 		{
-			ptr->up = ptr->left->linehead;
-			ptr->up->down = ptr;
+			node->up = NULL;
+			
+			if (node->left->down != NULL)
+				if(node->left->down->right != NULL)
+						
+					if (node->left->down->right->data != '\n')
+					{
+						node->down = node->left->down->right;
+						node->down->up = node;
+					}
 		}
+				
 	}
+	else
+	{
+		node->up = node->left->linehead;
+		node->up->down = node;
+	}
+}
+
 	
 void MoveCursor()
+{
+	char temp = _getch();
+	
+	if ((int)temp == 77)							// Right 
 	{
-		char temp = _getch();
-		if ((int)temp == 77) 
+		if (editor.cursor->right != NULL)
 		{
-			if (editor.cursor->right!=nullptr)
-				editor.cursor = editor.cursor->right;
+			editor.cursor = editor.cursor->right;
 		}
-		else if ((int)temp == 72) 
-		{
-			if (editor.cursor->up == nullptr)
-			{
-				//node* temppointer = cursor;
-				while (editor.cursor->up == nullptr && editor.cursor!=editor.cursor->linehead)
-				{
-					editor.cursor = editor.cursor->left;
-				}
-			}
-			if(editor.cursor!=editor.cursor->linehead)
-				editor.cursor = editor.cursor->up;
-		}
-		else if ((int)temp == 75) 
-		{
-			if (editor.cursor != editor.head_of_notepad && editor.cursor->left!=nullptr)
-				editor.cursor = editor.cursor->left;
-		}
-		else if ((int)temp == 80) 
-		{
-			if (editor.cursor->down == nullptr)
-			{
-				while (editor.cursor->down == nullptr && editor.cursor != editor.cursor->linehead)
-				{
-					editor.cursor = editor.cursor->left;
-				}
-			}
-			if (editor.cursor != editor.cursor->linehead)
-				editor.cursor = editor.cursor->down;
-		}
-
 	}
+	else if ((int)temp == 72)						// UP 
+	{
+		if (editor.cursor->up == NULL)
+		{
+			while (editor.cursor->up == NULL && editor.cursor!=editor.cursor->linehead)
+			{
+				editor.cursor = editor.cursor->left;
+			}
+		}
+	
+		if(editor.cursor!=editor.cursor->linehead)
+		{
+			editor.cursor = editor.cursor->up;
+		}
+	}
+	else if ((int)temp == 75)						// Left
+	{
+		if (editor.cursor != editor.head_of_notepad && editor.cursor->left != NULL)
+		{
+			editor.cursor = editor.cursor->left;
+		}
+	}
+	else if ((int)temp == 80) 						// Down
+	{
+		if (editor.cursor->down == NULL)
+		{
+			while (editor.cursor->down == NULL && editor.cursor != editor.cursor->linehead)
+			{
+				editor.cursor = editor.cursor->left;
+			}
+		}
+			
+		if (editor.cursor != editor.cursor->linehead)
+		{
+			editor.cursor = editor.cursor->down;
+		}
+	}
+}
 
 void Print_Text()
-	{
-		address ptr = editor.head_of_notepad;
-		while (ptr != NULL)
+{
+	
+	address ptr = editor.head_of_notepad;
+	while (ptr != NULL)
 		{
-			if (ptr->data == '\0')
-				printf("");
-			else
-			{
-				printf("%c",ptr->data);
-			}
-				
-			ptr = ptr->right;
+		if (ptr->data == '\0')
+			printf("");
+		else
+		{
+			printf("%c",ptr->data);
 		}
+				
+		ptr = ptr->right;
+	}
+
 }
 	
 void setCursor()
@@ -220,33 +253,43 @@ void setCursor()
 		}
 	}
 
-void keyProsess(){
-	 char data=NULL;
+void keyProsess()
+{
+	/* Kamus Data Lokal */
+	char data=NULL;
 	
-	 editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
-	 Inisialisasi(); 
+	/* Proses inisialisasi cursor */
+	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE);
+	Inisialisasi(); 
 	
-	 while(1){
-	  SetConsoleCursorPosition(editor.hstdout, editor.destcord);
-	  data = _getch();
-	  if( data == '\b'){
-	  	Deletion();
-	  	system("cls");
-	  	Print_Text();
+	while(1)
+	{ 
+		/* Proses memperbaharui posisi cursor */
+		SetConsoleCursorPosition(editor.hstdout, editor.destcord);
 	  	
-	  } else if((int)data == (-32)){
+		/* Proses pengisian inputan keyboard */
+		data = _getch();
+		
+		/* Proses pengecekan inputan keyboard */
+	  	if( data == '\b')							// backspace
+		{
+	  		Deletion();
+	  		system("cls");
+	  		Print_Text();
 	  	
-	  	MoveCursor();
+	  	} 
+		else if ((int)data == -32)                  // Arrow key
+		{
+			MoveCursor();
+	  	}
+		else 
+		{
+			Insertion(data);
+			system("cls");
+			Print_Text();
+	  	}
 	  	
-	  }
-	  
-	  else {
-	  	
-	  	Insertion(data);
-		system("cls");
-		Print_Text();
-	  }
-	setCursor();
+		setCursor();
 	}
 }
 
