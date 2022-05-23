@@ -25,6 +25,7 @@ struct NotePad{
 	address cursor;
 	HANDLE hstdout;
 	COORD destcord;
+	int Modifier;
 	
 };
 
@@ -37,7 +38,8 @@ enum KeyInput{
 	CTRL_N = 14,
 	CTRL_Q = 17,
 	CTRL_C = 3,
-	CTRL_I = 9
+	CTRL_I = 9,
+	ESC = '\x1b'
 	
 };
 

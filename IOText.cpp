@@ -263,6 +263,7 @@ void keyProsess(char filename[20])
 {
 
 	char data;
+	editor.Modifier = 0;
 	
 	/* Proses inisialisasi cursor */
 	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE); 
@@ -276,26 +277,42 @@ void keyProsess(char filename[20])
 		/* Proses pengisian inputan keyboard */
 		data = _getch();
 		
+		
 		/* Proses pengecekan inputan keyboard */
 	  	if( data == '\b')							// backspace
 		{
 	  		Deletion();
 	  		system("cls");
 	  		Print_Text();
+	  		editor.Modifier = 1; 
 	  	
 	  	} 
 		else if ((int)data == -32)                  // Arrow key
 		{
 			MoveCursor();
 	  	}
-		else if(data == CTRL_S){
+		else if(data == CTRL_S)
+		{
 	  		saveFile(&editor.head_of_notepad, filename);
+	  		editor.Modifier = 0;
 	 	} 
+	 	else if(data == CTRL_Q || data == ESC)
+	 	{
+	 		if (editor.Modifier == 1)
+	 		{
+	 			printf("Belum di save\n");
+			}
+			else 
+			{
+				exit(1);
+			}
+		}
 	  	else 
 		{	  	
 	  		Insertion(data);
 	  		system("cls");
 	  		Print_Text();
+	  		editor.Modifier = 1;
 	  	}
 		setCursor();
 	}
