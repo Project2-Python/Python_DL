@@ -8,14 +8,13 @@ int main()
 {
 	
 	/* Proses Menampilkan awal app */
-	boxTampilanAwalApp();
+//	boxTampilanAwalApp();
 	Inisialisasi();
 	
 	/* Proses Insertion / Proses edit text */
-	system("cls");
-	color(7);	
-	//createFile();
-	
+//	system("cls");
+//	color(7);	
+//	createFile();
 //	renameFile();
 //	removeFile();
 	openFile();

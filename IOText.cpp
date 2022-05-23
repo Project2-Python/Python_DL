@@ -233,11 +233,16 @@ void Print_Text()
 	
 void setCursor()
 	{
-		address ptr = editor.head_of_notepad->right;
 			editor.destcord.X = 0;
 			editor.destcord.Y = 0;
+		address ptr = editor.head_of_notepad->right;
 		while (ptr != NULL)
 		{
+			if(editor.cursor == editor.head_of_notepad)
+			{
+				break;
+			}
+			
 			if (ptr->data == '\n')
 			{
 				editor.destcord.X = 0;
@@ -261,6 +266,7 @@ void keyProsess(char filename[20])
 	
 	/* Proses inisialisasi cursor */
 	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE); 
+	editor.cursor = editor.head_of_notepad;
 	
 	while(1)
 	{ 
