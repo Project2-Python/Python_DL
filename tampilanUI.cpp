@@ -41,3 +41,12 @@ void gotoxy(int x, int y)
 	
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), koordinat); 
 }
+
+void screenBuffer(){
+	COORD koordinat;
+	
+	koordinat.Y = 9001;
+	koordinat.X = 500;
+	
+	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), koordinat); 
+}

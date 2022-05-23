@@ -9,6 +9,7 @@ int main()
 	
 	/* Proses Menampilkan awal app */
 //	boxTampilanAwalApp();
+	screenBuffer();
 	Inisialisasi();
 	
 	/* Proses Insertion / Proses edit text */
