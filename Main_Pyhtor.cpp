@@ -11,6 +11,8 @@ int main()
 //	boxTampilanAwalApp();
 	screenBuffer();
 	Inisialisasi();
+	screenSize();
+//	Inisialisasi();
 	
 	/* Proses Insertion / Proses edit text */
 //	system("cls");
@@ -18,7 +20,9 @@ int main()
 //	createFile();
 //	renameFile();
 //	removeFile();
-	openFile();
+//	openFile();
+	boxmenu();
+	BoxPilihMenu();
   
 	return 0;
 }
