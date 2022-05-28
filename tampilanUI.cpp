@@ -18,8 +18,6 @@ void screenSize(){
 }
 
 
-
-
 void boxTampilanAwalApp()
 {
 	system("cls");
@@ -61,9 +59,6 @@ void gotoxy(int x, int y)
 }
 
 void boxmenu(){
-//	int Set[]={7};
-	int Warna[]={7};
-	color(Warna[0]);
 	
 	gotoxy(0,28); printf("%c",201); // box atas Kiri
 	gotoxy(120,28); printf("%c",187); // box atas Kanan

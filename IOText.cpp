@@ -54,6 +54,7 @@ void Insertion(int data)
 	else
 	{
 		nodeBaru->data = data;
+		printf("%c", nodeBaru->data);
 	}	
 		
 	if (editor.head_of_notepad == NULL)
@@ -217,6 +218,8 @@ void Print_Text()
 {
 	
 	address ptr = editor.head_of_notepad;
+
+
 	while (ptr != NULL)
 		{
 		if (ptr->data == '\0')
@@ -228,13 +231,15 @@ void Print_Text()
 				
 		ptr = ptr->right;
 	}
-
+	
+	
 }
+	
 	
 void setCursor()
 	{
-			editor.destcord.X = 0;
-			editor.destcord.Y = 0;
+		editor.destcord.X = 0;
+		editor.destcord.Y = 0;
 		address ptr = editor.head_of_notepad->right;
 		while (ptr != NULL)
 		{
@@ -259,24 +264,29 @@ void setCursor()
 	}
 
 
-void keyProsess(char filename[20])
+void keyProsess()
 {
 
 	char data;
+
 	editor.Modifier = 0;
 	
 	/* Proses inisialisasi cursor */
 	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE); 
 	editor.cursor = editor.head_of_notepad;
 	
+
+	
 	while(1)
 	{ 
+		/* Menampilkan Menu Bar */
+		boxmenu();
+		
 		/* Proses memperbaharui posisi cursor */
 		SetConsoleCursorPosition(editor.hstdout, editor.destcord);
 	  	
 		/* Proses pengisian inputan keyboard */
 		data = _getch();
-		
 		
 		/* Proses pengecekan inputan keyboard */
 	  	if( data == '\b')							// backspace
@@ -293,7 +303,7 @@ void keyProsess(char filename[20])
 	  	}
 		else if(data == CTRL_S)
 		{
-	  		saveFile(&editor.head_of_notepad, filename);
+//	  		saveFile(&editor.head_of_notepad);
 	  		editor.Modifier = 0;
 	 	} 
 	 	else if(data == CTRL_Q || data == ESC)
@@ -307,60 +317,64 @@ void keyProsess(char filename[20])
 				exit(1);
 			}
 		}
+		else if (data == 59) 
+		{
+			BoxPilihMenu();
+		}
 	  	else 
 		{	  	
 	  		Insertion(data);
-	  		system("cls");
-	  		Print_Text();
 	  		editor.Modifier = 1;
 	  	}
 		setCursor();
 	}
 }
 
-void Deletion()
-	{
-		address tempfordel = editor.cursor;
-		if (editor.cursor == editor.head_of_notepad)
-			return;
-		if (tempfordel->right == NULL)
-		{
-			editor.cursor = editor.cursor->left;
-			editor.cursor->right = NULL;
-			if (tempfordel->up != NULL)
-				tempfordel->up->down = NULL;
-			tempfordel->up = NULL;
-			if (tempfordel->down != NULL)
-				tempfordel->down->up = NULL;
-			tempfordel->down = NULL;
-			delete tempfordel;
-		}
-		else if (tempfordel->right != NULL)
-		{
-			editor.cursor = editor.cursor->left;
-			while (tempfordel->right->data != '\n') 
-			{
-				swap(&tempfordel->data, &tempfordel->right->data);
-				tempfordel = tempfordel->right;
-				if (tempfordel->right == NULL)
-					break;
-			}
-				tempfordel->left->right = tempfordel->right;
-				if (tempfordel->right != NULL)
-					tempfordel->right->left = tempfordel->left;
 
-			if(tempfordel->up!=NULL)
-				tempfordel->up->down = NULL;
-			tempfordel->up = NULL;
-			if(tempfordel->down!=NULL)
-				tempfordel->down->up = NULL;
-			tempfordel->down = NULL;
-			delete tempfordel;
-		}
+void Deletion()
+{
+	address tempfordel = editor.cursor;
+	if (editor.cursor == editor.head_of_notepad)
+		return;
+	if (tempfordel->right == NULL)
+	{
+		editor.cursor = editor.cursor->left;
+		editor.cursor->right = NULL;
+		if (tempfordel->up != NULL)
+			tempfordel->up->down = NULL;
+		tempfordel->up = NULL;
+		if (tempfordel->down != NULL)
+			tempfordel->down->up = NULL;
+		tempfordel->down = NULL;
+		delete tempfordel;
 	}
+	else if (tempfordel->right != NULL)
+	{
+		editor.cursor = editor.cursor->left;
+		while (tempfordel->right->data != '\n') 
+		{
+			swap(&tempfordel->data, &tempfordel->right->data);
+			tempfordel = tempfordel->right;
+			if (tempfordel->right == NULL)
+				break;
+		}
+			tempfordel->left->right = tempfordel->right;
+			if (tempfordel->right != NULL)
+				tempfordel->right->left = tempfordel->left;
+
+		if(tempfordel->up!=NULL)
+			tempfordel->up->down = NULL;
+		tempfordel->up = NULL;
+		if(tempfordel->down!=NULL)
+			tempfordel->down->up = NULL;
+		tempfordel->down = NULL;
+		delete tempfordel;
+	}
+}
 	
-void swap(char *tempfordel1, char *tempfordel2){
 	
+void swap(char *tempfordel1, char *tempfordel2)
+{	
 	char temp;
 	temp = *tempfordel1;
 	*tempfordel1 = *tempfordel2;

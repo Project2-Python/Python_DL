@@ -7,7 +7,7 @@
 #include "IOText.h"
 
 void createFile();
-void saveFile(address* AwalNotepad, char filename[20]);
+void saveFile(address* AwalNotepad);
 void removeFile();
 void renameFile();
 void openFile();

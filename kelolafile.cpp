@@ -15,29 +15,29 @@ void createFile(){
 	fp1 = fopen(filename,"w");
 	fclose(fp1);
 	system("cls");
-	keyProsess(filename);
+	keyProsess();
   
 }
 
-void saveFile(address* AwalNotepad, char filename[20])
-{
-		address ptr = *AwalNotepad;
-		ptr = ptr->right;
-		
-		FILE *fp;
-		fp = fopen(filename,"w");
-		
-		if(fp == NULL){
-			printf("File Tidak ada");
-		}else{
-			while (ptr != NULL)
-			{
-				fprintf(fp,"%c",ptr->data);
-				ptr = ptr->right;	
-			}
-		}
-		fclose(fp);
-}
+//void saveFile(address* AwalNotepad)
+//{
+//		address ptr = *AwalNotepad;
+//		ptr = ptr->right;
+//		
+//		FILE *fp;
+//		fp = fopen(filename,"w");
+//		
+//		if(fp == NULL){
+//			printf("File Tidak ada");
+//		}else{
+//			while (ptr != NULL)
+//			{
+//				fprintf(fp,"%c",ptr->data);
+//				ptr = ptr->right;	
+//			}
+//		}
+//		fclose(fp);
+//}
 
 void removeFile(){
 	
@@ -107,7 +107,7 @@ void openFile(){
 	
 	fclose(fedit);
 	Print_Text();
-	keyProsess(filename);
+	keyProsess();
 }
 
 

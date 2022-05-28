@@ -6,23 +6,27 @@
 
 int main()
 {
+	/* Proses Mengubah layar console */
+	screenBuffer();
+	screenSize();
 	
 	/* Proses Menampilkan awal app */
-//	boxTampilanAwalApp();
-	screenBuffer();
+	boxTampilanAwalApp();
+	system("cls");
+	
+	/* Proses Awal Dari Text Editor */
 	Inisialisasi();
-	screenSize();
-//	Inisialisasi();
 	
 	/* Proses Insertion / Proses edit text */
+	color(7);
+	keyProsess();
 //	system("cls");
 //	color(7);	
 //	createFile();
 //	renameFile();
 //	removeFile();
 //	openFile();
-	boxmenu();
-	BoxPilihMenu();
+
   
 	return 0;
 }
