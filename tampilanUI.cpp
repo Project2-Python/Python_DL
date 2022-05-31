@@ -1,4 +1,5 @@
 #include "tampilanUI.h"
+#include "kelolafile.h"
 
 
 //Get Console Handle
@@ -59,42 +60,54 @@ void gotoxy(int x, int y)
 }
 
 void boxmenu(){
-	
-	gotoxy(0,28); printf("%c",201); // box atas Kiri
-	gotoxy(120,28); printf("%c",187); // box atas Kanan
-	gotoxy(5,28);printf("%c",205);
-		for(int i=0;i<1;i++){ // vertikal kiri
-			gotoxy(5,29+i);
-			printf("%c",186);
-		} 
+	color(7);
+	gotoxy(0,28); 	printf("%c",201); 		// box atas Kiri
+	gotoxy(120,28); printf("%c",187); 		// box atas Kanan
+	gotoxy(5,28);	printf("%c",205);
+	for(int i=0;i<1;i++){ 					// vertikal kiri
+		gotoxy(5,29+i);
+		printf("%c",186);
+	} 
 	gotoxy(1,28); 
-		for(int i=0;i<119;i++)//PrintBox Vertikal Atas
-			{ 
-			printf("%c",205);
-			}
-	gotoxy(120,30); printf("%c",188);// Box siku kanan bawah
-		for(int i=0;i<1;i++){ // vertikal kanan
-			gotoxy(120,29+i);
-			printf("%c",186);
+	for(int i=0;i<119;i++)					//PrintBox Vertikal Atas
+		{ 
+		printf("%c",205);
 		}
-	for(int i=0;i<1;i++){ // vertikal kiri
+	gotoxy(120,30); printf("%c",188);		// Box siku kanan bawah
+	for(int i=0;i<1;i++){ 					// vertikal kanan
+		gotoxy(120,29+i);
+		printf("%c",186);
+	}
+	for(int i=0;i<1;i++){ 					// vertikal kiri
 		gotoxy(0,29+i);
 		printf("%c",186);
 	} 
-	gotoxy(0,30);printf("%c",200); //Print Box Kotak kiri bawah
-		for(int i=0;i<119;i++)//Print Vertikal bawah
+	gotoxy(0,30);printf("%c",200); 			//Print Box Kotak kiri bawah
+		for(int i=0;i<119;i++)				//Print Vertikal bawah
 		{ 
 			printf("%c",205);
 		}
 	gotoxy(2,29);
 	printf("F1");	
+	
+	gotoxy(8,29);
+	printf("Open File");
+	
+	gotoxy(20,29);
+	printf(" Save(Ctrl+S)");
+	
+	gotoxy(37,29);
+	printf(" Help");
+	
+	gotoxy(45,29);
+	printf(" Exit");
 }
 
 void BoxPilihMenu(){
 	
 	int x=2, y=2;
 	int Set[]={7,7,7,7};
-	int counter= 3;
+	int counter= 2;
 	char key;
 	for (int i=0 ;;)
 	{
@@ -133,8 +146,7 @@ void BoxPilihMenu(){
 			{
 				if(counter == 1 )
 					{
-						gotoxy(88,30);
-						printf("Menu 1 is open");
+						openFile();
 					}
 				if(counter == 2 )
 					{

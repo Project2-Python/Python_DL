@@ -1,43 +1,42 @@
 
 #include "kelolafile.h"
+#include "tampilanUI.h"
 
-
-
+struct file File;
 
 void createFile(){
 	
-	FILE *fp1;
-	char filename[20];
+	gotoxy(1,27);	printf("Masukkan nama file : ");
+	scanf("%s",File.namaFile);
+	gotoxy(1,27);	printf("                                                                   ");
 	
-	printf("\t\tMasukkan nama file : ");
-	scanf("%s",filename);
-	
-	fp1 = fopen(filename,"w");
-	fclose(fp1);
-	system("cls");
-	keyProsess();
-  
+	File.isFileEmpty = 0;
 }
 
-//void saveFile(address* AwalNotepad)
-//{
-//		address ptr = *AwalNotepad;
-//		ptr = ptr->right;
-//		
-//		FILE *fp;
-//		fp = fopen(filename,"w");
-//		
-//		if(fp == NULL){
-//			printf("File Tidak ada");
-//		}else{
-//			while (ptr != NULL)
-//			{
-//				fprintf(fp,"%c",ptr->data);
-//				ptr = ptr->right;	
-//			}
-//		}
-//		fclose(fp);
-//}
+
+void saveFile(address* AwalNotepad)
+{
+		address ptr;
+		FILE *fp;
+		
+		ptr = *AwalNotepad;
+		ptr = ptr->right;
+		
+		if(File.isFileEmpty == 1)
+		{
+			createFile();
+		}
+		
+		fp = fopen(File.namaFile,"w");
+		
+		while (ptr != NULL)
+		{
+			fprintf(fp,"%c",ptr->data);
+			ptr = ptr->right;	
+		}
+
+		fclose(fp);
+}
 
 void removeFile(){
 	
@@ -80,33 +79,41 @@ void renameFile()
 void openFile(){
 	
 	FILE *fedit;
-	char c, filename[20];
 	address feditor;
+	char c, fileName[25];
 	
-	printf("\t\tNama file : ");
-	scanf("%s", filename);
+	gotoxy(1,27);	printf("Masukkan nama file : ");
+	scanf("%s",fileName);
+	gotoxy(1,27);	printf("                                                                   ");
 	
-	fedit = fopen(filename,"r");
+	fedit = fopen(fileName,"r");
 	if(fedit == NULL)
 	{
 		
 		printf("\t\tFile tidak ada");
 		system("\t\tpause");
+		File.isFileEmpty = 1;
 		
 	} 
-	
-	system("cls");
-	while(!feof(fedit)){
-		
-		fscanf(fedit, "%c", &c);
-		if(c == -1){
-			break;
-		}
-		Insertion(c);
+	else
+	{
+		strcpy(File.namaFile, fileName);
+		File.isFileEmpty = 0;
 	}
 	
+	if(File.isFileEmpty != 1)
+	{
+		system("cls");
+		Inisialisasi();
+		while(!feof(fedit)){
+			if(c == -1){
+				break;
+			}
+			fscanf(fedit, "%c", &c);
+			Insertion(c);
+		}
+	}
 	fclose(fedit);
-	Print_Text();
 	keyProsess();
 }
 
