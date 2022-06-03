@@ -54,7 +54,6 @@ void Insertion(int data)
 	else
 	{
 		nodeBaru->data = data;
-		
 	}	
 		
 	if (editor.head_of_notepad == NULL)
@@ -158,8 +157,7 @@ void UpDownLink(address node, char key)
 						node->down = node->left->down->right;
 						node->down->up = node;
 					}
-		}
-				
+		}	
 	}
 	else
 	{
@@ -219,27 +217,6 @@ void MoveCursor()
 	}
 }
 
-void Print_Text()
-{
-	
-	address ptr = editor.head_of_notepad;
-
-
-	while (ptr != NULL)
-		{
-		if (ptr->data == '\0')
-			printf("");
-		else
-		{
-			printf("%c",ptr->data);
-		}
-				
-		ptr = ptr->right;
-	}
-	
-	
-}
-	
 	
 void setCursor()
 	{
@@ -280,7 +257,6 @@ void keyProsess()
 	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE); 
 	editor.cursor = editor.head_of_notepad;
 	
-	
 	while(1)
 	{ 
 		/* Menampilkan Menu Bar */
@@ -319,9 +295,36 @@ void keyProsess()
 				exit(1);
 			}
 		}
-		else if (data == 59) 
+		else if(data == CTRL_T) 
 		{
-			BoxPilihMenu();
+			int menu = BoxPilihMenu();  
+			
+			if(menu == 1)
+			{
+				saveFile(&editor.head_of_notepad);
+	  			editor.Modifier = 0;
+				
+			} 
+			else if(menu == 2)
+			{
+				openFile();
+			}
+			else if(menu == 3)
+			{
+				renameFile();
+			}
+			else if(menu == 4)
+			{
+				removeFile();
+			}
+			else if(menu == 5)
+			{
+				
+			}
+			else if(menu == 6)
+			{
+				
+			}
 		}
 	  	else 
 		{	  	
@@ -380,12 +383,12 @@ void Deletion()
 }
 	
 	
-void swap(char *tempfordel1, char *tempfordel2)
+void swap(char *data1, char *data2)
 {	
 	char temp;
-	temp = *tempfordel1;
-	*tempfordel1 = *tempfordel2;
-	*tempfordel2 = temp;	
+	temp = *data1;
+	*data1 = *data2;
+	*data2 = temp;	
 }
 
 

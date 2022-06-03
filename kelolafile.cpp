@@ -4,7 +4,9 @@
 
 struct file File;
 
-void createFile(){
+
+void createFile()
+{
 	
 	gotoxy(1,27);	printf("Masukkan nama file : ");
 	scanf("%s",File.namaFile);
@@ -16,42 +18,50 @@ void createFile(){
 
 void saveFile(address* AwalNotepad)
 {
-		address ptr;
-		FILE *fp;
-		
-		ptr = *AwalNotepad;
-		ptr = ptr->right;
-		
-		if(File.isFileEmpty == 1)
-		{
-			createFile();
-		}
-		
-		fp = fopen(File.namaFile,"w");
-		
-		while (ptr != NULL)
-		{
-			fprintf(fp,"%c",ptr->data);
-			ptr = ptr->right;	
-		}
+	address ptr;
+	FILE *fp;
+	
+	ptr = *AwalNotepad;
+	ptr = ptr->right;
+	
+	if(File.isFileEmpty == 1)
+	{
+		createFile();
+	}
+	
+	fp = fopen(File.namaFile,"w");
+	
+	while (ptr != NULL)
+	{
+		fprintf(fp,"%c",ptr->data);
+		ptr = ptr->right;	
+	}
 
-		fclose(fp);
+	fclose(fp);
 }
+
 
 void removeFile(){
 	
 	FILE *fp;
 	int status;
 	char filename[20];
+	
 	printf("\t\tMasukan Nama File :");
 	scanf("%s",filename);
+	
 	status=remove(filename);
-	if(status!= 0){
-	printf("\t\tFile Tidak Terhapus");
-	}else{
-	printf("\t\tFile Terhapus");
+	
+	if(status!= 0)
+	{
+		printf("\t\tFile Tidak Terhapus");
+	}
+	else
+	{
+		printf("\t\tFile Terhapus");
 	}
 }
+
 
 void renameFile()
 {
@@ -75,6 +85,7 @@ void renameFile()
  	printf("\t\t"); system("pause");
  
 }
+
 
 void openFile(){
 	
@@ -106,10 +117,10 @@ void openFile(){
 		system("cls");
 		Inisialisasi();
 		while(!feof(fedit)){
+			c = fgetc(fedit);
 			if(c == -1){
 				break;
 			}
-			fscanf(fedit, "%c", &c);
 			Insertion(c);
 		}
 	}

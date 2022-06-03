@@ -20,13 +20,6 @@ int main()
 	/* Proses Insertion / Proses edit text */
 	color(7);
 	keyProsess();
-//	system("cls");
-//	color(7);	
-//	createFile();
-//	renameFile();
-//	removeFile();
-//	openFile();
 
-  
 	return 0;
 }

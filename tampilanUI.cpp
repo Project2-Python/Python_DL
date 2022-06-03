@@ -2,18 +2,19 @@
 #include "kelolafile.h"
 
 
-//Get Console Handle
-void screenBuffer(){
-		COORD koordinat;
+void screenBuffer()
+{
+	COORD layar;
 	
-	koordinat.Y = 9001;
-	koordinat.X = 500;
+	layar.Y = 9001;
+	layar.X = 500;
 	
-	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), koordinat); 
+	SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), layar); 
 }
 
-void screenSize(){
-	
+
+void screenSize()
+{
 	SMALL_RECT windowSize = {0, 0, 120, 30};//LEFT TOP RIGHT BOTTOM
     SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), 1, &windowSize);
 }
@@ -37,17 +38,11 @@ void boxTampilanAwalApp()
 }
 
 
-void boxTampilanMenu()
-{
-	gotoxy(0,25);  printf("\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC4\xC");
-	
-}
-
-
 void color(int color)
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
+
 
 void gotoxy(int x, int y)
 {
@@ -59,132 +54,187 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), koordinat); 
 }
 
-void boxmenu(){
+
+void boxmenu()
+{
+	/* Ubah warna tampilan menjadi warna default (putih) */
 	color(7);
+	
 	gotoxy(0,28); 	printf("%c",201); 		// box atas Kiri
 	gotoxy(120,28); printf("%c",187); 		// box atas Kanan
 	gotoxy(5,28);	printf("%c",205);
-	for(int i=0;i<1;i++){ 					// vertikal kiri
-		gotoxy(5,29+i);
+	
+	// vertikal kiri bagian dalam box 
+	for(int i=0;i<1;i++)
+	{ 					
+		gotoxy(9,29+i);
 		printf("%c",186);
 	} 
+	
+	//PrintBox horizontal Atas atau garis box atas
 	gotoxy(1,28); 
-	for(int i=0;i<119;i++)					//PrintBox Vertikal Atas
-		{ 
+	for(int i=0;i<119;i++)				
+	{ 
 		printf("%c",205);
-		}
+	}
+	
 	gotoxy(120,30); printf("%c",188);		// Box siku kanan bawah
-	for(int i=0;i<1;i++){ 					// vertikal kanan
+	
+	// vertikal kanan box
+	for(int i=0;i<1;i++)
+	{ 					
 		gotoxy(120,29+i);
 		printf("%c",186);
 	}
-	for(int i=0;i<1;i++){ 					// vertikal kiri
+	
+	// vertikal kiri box
+	for(int i=0;i<1;i++){ 					
 		gotoxy(0,29+i);
 		printf("%c",186);
 	} 
-	gotoxy(0,30);printf("%c",200); 			//Print Box Kotak kiri bawah
-		for(int i=0;i<119;i++)				//Print Vertikal bawah
-		{ 
-			printf("%c",205);
-		}
-	gotoxy(2,29);
-	printf("F1");	
 	
-	gotoxy(8,29);
+	gotoxy(0,30);printf("%c",200); 			//Print Box Kotak kiri bawah
+	
+	//Print horizontal bawah atau garis box bawah
+	for(int i=0;i<119;i++)				
+	{ 
+		printf("%c",205);
+	}
+	
+	gotoxy(2,29);
+	printf("CTRL_T");	
+	
+	gotoxy(11,29);
+	printf("Save(Ctrl+S)");
+	
+	gotoxy(35,29);
 	printf("Open File");
 	
-	gotoxy(20,29);
-	printf(" Save(Ctrl+S)");
+	gotoxy(56,29);
+	printf("Rename File");
 	
-	gotoxy(37,29);
-	printf(" Help");
+	gotoxy(79,29);
+	printf("Remove File");
+		
+	gotoxy(101,29);
+	printf("Help");
 	
-	gotoxy(45,29);
-	printf(" Exit");
+	gotoxy(115,29);
+	printf("Exit");
 }
 
-void BoxPilihMenu(){
-	
-	int x=2, y=2;
-	int Set[]={7,7,7,7};
+
+int BoxPilihMenu()
+{
+	int Set[]={7,7,7,7,7,7};
 	int counter= 2;
 	char key;
+	
 	for (int i=0 ;;)
 	{
-		
+		/* Proses menampilkan box menu */
 		boxmenu();
-			
-		gotoxy(8,29);
+		
+		gotoxy(11,29);
 		color(Set[0]);
+		printf("Save(Ctrl+S)");
+		
+		gotoxy(35,29);
+		color(Set[1]);
 		printf("Open File");
 		
-		gotoxy(20,29);
-		color(Set[1]);
-		printf(" Save(Ctrl+S)");
-		
-		gotoxy(37,29);
+		gotoxy(56,29);
 		color(Set[2]);
-		printf(" Help");
+		printf("Rename File");
 		
-		gotoxy(45,29);
+		gotoxy(79,29);
 		color(Set[3]);
-		printf(" Exit");
+		printf("Remove File");
+			
+		gotoxy(101,29);
+		color(Set[4]);
+		printf("Help");
+		
+		gotoxy(115,29);
+		color(Set[5]);
+		printf("Exit");	
 
 		key= _getch();
 		
+		if(key == 75 && (counter>1 && counter <=6)) 		//72 = Arow left
+		{
+			counter = counter - 1;
+		}
 		
-		if(key == 75 && (counter>1 && counter <=4)) //72 = Arow left
-			{
-				counter = counter - 1;
-			}
-		if(key == 77 && (counter>=1 && counter <4)) //80 = Arow Right
-			{
-				counter = counter + 1;
-			}
+		if(key == 77 && (counter>=1 && counter <6)) 		//77 = Arow Right
+		{
+			counter = counter + 1;
+		}
 		
-		if(key == '\r') //Carriage return = enter key
+		if(key == CTRL_T)
+		{
+			return 20; 
+		}
+		
+		if(key == '\r')	 									//Carriage return = enter key
 			{
 				if(counter == 1 )
-					{
-						openFile();
-					}
+				{
+					return 1;
+				}
 				if(counter == 2 )
-					{
-						gotoxy(88,30);
-						printf("Menu 2 is open");
-					}
+				{
+					return 2;
+				}
 				if(counter == 3 )
-					{
-						gotoxy(88,30);
-						printf("Menu 3 is open");
-					}
+				{
+					return 3;
+				}
 				if(counter == 4 )
-					{
-						gotoxy(88,30);
-//						color(Set[4]);
-						printf("Close");
-					}
+				{
+					return 4; 
+				}
+				if(counter == 5)
+				{
+					return 5;
+				}
+				if(counter == 6)
+				{
+					return 6; 
+				}
 			}
 			
-		Set[0]= 7; //defaut white colour
-		Set[1]= 7; //defaut white colour
-		Set[2]= 7; //defaut white colour
-		Set[3]= 7; //default white colour		
-		if(counter== 1)
-			{
-				Set[0]= 12;// 12 Colour is red
-			}
+		//defaut white colour	
+		Set[0]= 7; 
+		Set[1]= 7; 
+		Set[2]= 7; 
+		Set[3]= 7; 
+		Set[4]= 7;
+		Set[5]= 7;
+				
+		if(counter == 1)
+		{
+			Set[0]= 12;// 12 Colour is red
+		}
 		if(counter == 2)
-			{
-				Set[1]= 12;// 12 Colour is red
-			}
+		{
+			Set[1]= 12;// 12 Colour is red
+		}
 		if(counter == 3)
-			{
-				Set[2]= 12;// 12 Colour is red 
-			}
+		{
+			Set[2]= 12;// 12 Colour is red 
+		}
 		if(counter == 4)
-			{
-				Set[3]= 12;// 12 Colour is red 
-			}	
+		{
+			Set[3]= 12;// 12 Colour is red 
+		}
+		if(counter == 5)
+		{
+			Set[4]= 12;// 12 Colour is red 
+		}
+		if(counter == 6)
+		{
+			Set[5]= 12;// 12 Colour is red 
+		}	
 	}
 }

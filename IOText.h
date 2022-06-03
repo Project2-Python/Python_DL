@@ -35,9 +35,8 @@ enum KeyInput{
 	
 	ENTER = 13,
 	CTRL_S = 19,
-	CTRL_N = 14,
 	CTRL_Q = 17,
-	CTRL_C = 3,
+	CTRL_T = 20,
 	CTRL_I = 9,
 	ESC = '\x1b'
 	
@@ -48,11 +47,10 @@ enum KeyInput{
 address Alokasi();
 void Inisialisasi();
 void Insertion(int data);
-void Print_Text();
 void setCursor();
 void keyProsess();
 void Deletion();
-void swap(char *tempfordel1, char *tempfordel2);
+void swap(char *data1, char *data2);
 void UpDownLink(address ptr, char key);
 void MoveCursor();
 
