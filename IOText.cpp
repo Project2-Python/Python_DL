@@ -66,20 +66,42 @@ void Insertion(int data)
 		nodeBaru->left = temp;
 		editor.head_of_notepad = temp;
 		editor.cursor = nodeBaru;
+		
 	}
 	else if (editor.cursor->right!=NULL)
 	{
 		address tempformidinsert = editor.cursor->right;
 		nodeBaru->linehead = editor.cursor->linehead;
+		
 		while (tempformidinsert->data != '\n')
 		{
 			swap(&nodeBaru->data, &tempformidinsert->data);
-			printf("%c", tempformidinsert->data);
+			if(tempformidinsert->data == '\n')
+			{
+				system("cls");
+				address printfromhead = editor.head_of_notepad;
+				while(printfromhead != tempformidinsert)
+				{
+					if (printfromhead->data == '\0')
+					{
+						printf("");	
+					}	
+					else
+					{
+					printf("%c", printfromhead->data);
+					}
+					
+					printfromhead = printfromhead->right;
+				}
+			}
 			
+			printf("%c", tempformidinsert->data);
+		
 			if (tempformidinsert->right == NULL)
 			{
 				break;
 			}
+			
 			tempformidinsert = tempformidinsert->right;
 		}
 		if (tempformidinsert->right == NULL)
@@ -88,6 +110,7 @@ void Insertion(int data)
 			nodeBaru->right = NULL;
 			tempformidinsert->right = nodeBaru;
 			editor.cursor = editor.cursor->right;
+		
 		}
 		else
 		{
@@ -97,6 +120,7 @@ void Insertion(int data)
 			tempformidinsert->left = nodeBaru;
 			editor.cursor = editor.cursor->right;
 		}
+	
 	}
 	else
 	{
@@ -217,7 +241,7 @@ void MoveCursor()
 	}
 }
 
-	
+
 void setCursor()
 	{
 		editor.destcord.X = 0;
