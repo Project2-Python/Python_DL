@@ -4,6 +4,11 @@
 
 struct file File;
 
+char *getNameFile()
+{	
+	return File.namaFile;
+}
+
 
 void createFile()
 {
@@ -104,7 +109,6 @@ void openFile(){
 		printf("\t\tFile tidak ada");
 		system("\t\tpause");
 		File.isFileEmpty = 1;
-		
 	} 
 	else
 	{
@@ -115,7 +119,12 @@ void openFile(){
 	if(File.isFileEmpty != 1)
 	{
 		system("cls");
+		
 		Inisialisasi();
+		editor.destcord.X = 0;
+		editor.destcord.Y = 1;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), editor.destcord);
+		
 		while(!feof(fedit)){
 			c = fgetc(fedit);
 			if(c == -1){

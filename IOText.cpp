@@ -33,8 +33,6 @@ void Inisialisasi()
 {	
 	editor.head_of_notepad = NULL;
 	editor.cursor = NULL;
-	editor.destcord.X = 0;
-	editor.destcord.Y = 0;	
 }
 
 
@@ -79,6 +77,11 @@ void Insertion(int data)
 			if(tempformidinsert->data == '\n')
 			{
 				system("cls");
+				
+				editor.destcord.X = 0;
+				editor.destcord.Y = 1;
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), editor.destcord);
+				
 				address printfromhead = editor.head_of_notepad;
 				while(printfromhead != tempformidinsert)
 				{
@@ -245,7 +248,7 @@ void MoveCursor()
 void setCursor()
 	{
 		editor.destcord.X = 0;
-		editor.destcord.Y = 0;
+		editor.destcord.Y = 1;
 		address ptr = editor.head_of_notepad->right;
 		while (ptr != NULL)
 		{
@@ -274,15 +277,21 @@ void keyProsess()
 {
 
 	char data;
+	char filename[25];
 
 	editor.Modifier = 0;
 	
 	/* Proses inisialisasi cursor */
 	editor.hstdout = GetStdHandle(STD_OUTPUT_HANDLE); 
 	editor.cursor = editor.head_of_notepad;
+	editor.destcord.X = 0;
+	editor.destcord.Y = 1;
+	
+	gotoxy(60,0); printf("%s", getNameFile());
 	
 	while(1)
 	{ 
+		
 		/* Menampilkan Menu Bar */
 		boxmenu();
 		
@@ -355,6 +364,7 @@ void keyProsess()
 	  		Insertion(data);
 	  		editor.Modifier = 1;
 	  	}
+	  	gotoxy(60,0); printf("%s", getNameFile());
 		setCursor();
 	}
 }

@@ -12,6 +12,7 @@ struct file{
 	int isFileEmpty = 1;
 };
 
+char *getNameFile();
 void createFile();
 void saveFile(address* AwalNotepad);
 void removeFile();
