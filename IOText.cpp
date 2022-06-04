@@ -2,6 +2,36 @@
 #include "tampilanUI.h"
 #include "kelolafile.h"
 
+char getData()
+{
+	address temp = editor.head_of_notepad;
+	while(temp != NULL)
+	{
+		if(temp->right == NULL)
+		{
+			break;
+		}
+		temp = temp->right;
+		
+	}
+	
+	if(temp->data == '\n')
+	{
+		return temp->data;
+	}
+	
+	
+}
+int getkoordinatY()
+{
+	return editor.destcord.Y;
+}
+
+
+int getkoordinatX()
+{
+	return editor.destcord.X;
+}
 
 address Alokasi()
 {
@@ -330,11 +360,6 @@ void keyProsess()
 		{
 	  		Deletion();
 	  		editor.Modifier = 1; 
-	  		system("cls");
-  			editor.destcord.X = 0;
-			editor.destcord.Y = 1;
-			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), editor.destcord);
-	  		Print_Text(editor.head_of_notepad);
 	  	
 	  	} 
 		else if ((int)data == -32)                  // Arrow key
@@ -402,7 +427,7 @@ void keyProsess()
 void Deletion()
 {
 	address tempfordel = editor.cursor;
-	
+
 	if (editor.cursor == editor.head_of_notepad)
 		return;
 	if (tempfordel->right == NULL)
@@ -416,26 +441,57 @@ void Deletion()
 			tempfordel->down->up = NULL;
 		tempfordel->down = NULL;
 		delete tempfordel;
+		
+		editor.destcord.X -= 1;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), editor.destcord);
+		printf(" ");
 	}
 	else if (tempfordel->right != NULL)
 	{
 		editor.cursor = editor.cursor->left;
+		editor.destcord.X -= 1;
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), editor.destcord);
 		while (tempfordel->right->data != '\n') 
 		{
 			swap(&tempfordel->data, &tempfordel->right->data);
+			printf("%c", tempfordel->data);
 			tempfordel = tempfordel->right;
 			if (tempfordel->right == NULL)
+			{
 				break;
+			}
 		}
-			tempfordel->left->right = tempfordel->right;
-			if (tempfordel->right != NULL)
-				tempfordel->right->left = tempfordel->left;
+		
+		printf(" ");
+		if(tempfordel->data == '\n')
+		{
+			system("cls");
+			
+			editor.destcord.X = 0;
+			editor.destcord.Y = 1;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), editor.destcord);
+			
+			Print_Text(editor.head_of_notepad);
+		}
+		
+		
+		tempfordel->left->right = tempfordel->right;
+		
+		if (tempfordel->right != NULL)
+		{
+			tempfordel->right->left = tempfordel->left;
+		}
 
 		if(tempfordel->up!=NULL)
+		{
 			tempfordel->up->down = NULL;
+		}
 		tempfordel->up = NULL;
+		
 		if(tempfordel->down!=NULL)
+		{
 			tempfordel->down->up = NULL;
+		}
 		tempfordel->down = NULL;
 		delete tempfordel;
 	}

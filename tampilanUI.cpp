@@ -1,6 +1,30 @@
 #include "tampilanUI.h"
 #include "kelolafile.h"
 
+struct box koordinat; 
+
+void setCursor(COORD cursor)
+{
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursor);
+}
+
+
+void clearScreen(COORD startPoint = {0,0})
+{
+	CONSOLE_SCREEN_BUFFER_INFO info;
+	
+	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
+	
+	GetConsoleScreenBufferInfo(console, &info);
+	
+	DWORD written;
+	
+	FillConsoleOutputCharacter( console, ' ', info.dwSize.X, startPoint, &written );
+	FillConsoleOutputAttribute( console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE, info.dwSize.X, startPoint, &written );
+	
+	setCursor(startPoint);
+}
+
 
 void screenBuffer()
 {
@@ -15,7 +39,7 @@ void screenBuffer()
 
 void screenSize()
 {
-	SMALL_RECT windowSize = {0, 0, 120, 30};//LEFT TOP RIGHT BOTTOM
+	SMALL_RECT windowSize = {0, 0, 120, 30};	//LEFT TOP RIGHT BOTTOM
     SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), 1, &windowSize);
 }
 
@@ -56,44 +80,105 @@ void gotoxy(int x, int y)
 
 
 void boxmenu()
-{
+{ 
+	
 	/* Ubah warna tampilan menjadi warna default (putih) */
 	color(7);
 	
-	gotoxy(0,28); 	printf("%c",201); 		// box atas Kiri
-	gotoxy(120,28); printf("%c",187); 		// box atas Kanan
-	gotoxy(5,28);	printf("%c",205);
+	if(getkoordinatX() % 120 == 0 && getkoordinatX() != 0)
+	{
+		
+		
+		koordinat.a += 120;
+		koordinat.b += 120;
+		koordinat.c += 120;
+		koordinat.g += 120;
+		koordinat.h += 120;
+		koordinat.i += 120;
+		koordinat.j += 120;
+		koordinat.k += 120;
+		koordinat.l += 120;
+		koordinat.m += 120;
+		koordinat.n += 120;
+		
+		short data = koordinat.d;
 	
+		for(int i=0; i < 3; i++)
+		{
+			COORD line{ 0, data++ };
+	        setCursor( line );
+	        clearScreen( line );
+		}
+	}
+	else if(getkoordinatX() < 120)
+	{
+		koordinat.a = 0;
+		koordinat.b = 1;
+		koordinat.c = 9;
+		koordinat.g = 120; 
+		koordinat.h = 2;
+		koordinat.i = 11;
+		koordinat.j = 35;
+		koordinat.k = 56;
+		koordinat.l = 79;
+		koordinat.m = 101;
+		koordinat.n = 115; 
+		
+		short data = koordinat.d;
+	
+		for(int i=0; i < 3; i++)
+		{
+			COORD line{ 0, data++ };
+	        setCursor( line );
+	        clearScreen( line );
+		}
+	} 
+	
+	
+	if(getkoordinatY() >= 26 && getData() == '\n')
+	{
+		
+		
+		koordinat.d++;
+		koordinat.e++;
+		koordinat.f++;
+		
+	}
+	
+	
+	gotoxy(koordinat.a,koordinat.d); printf("%c",201); 		// box atas Kiri
+	gotoxy(koordinat.g,koordinat.d); printf("%c",187); 		// box atas Kanan
+
 	// vertikal kiri bagian dalam box 
 	for(int i=0;i<1;i++)
 	{ 					
-		gotoxy(9,29+i);
+		gotoxy(koordinat.c,koordinat.e+i);
 		printf("%c",186);
 	} 
 	
 	//PrintBox horizontal Atas atau garis box atas
-	gotoxy(1,28); 
+	gotoxy(koordinat.b,koordinat.d); 
 	for(int i=0;i<119;i++)				
 	{ 
 		printf("%c",205);
 	}
 	
-	gotoxy(120,30); printf("%c",188);		// Box siku kanan bawah
+	gotoxy(koordinat.g,koordinat.f); printf("%c",188);		// Box siku kanan bawah
 	
 	// vertikal kanan box
 	for(int i=0;i<1;i++)
 	{ 					
-		gotoxy(120,29+i);
+		gotoxy(koordinat.g,koordinat.e+i);
 		printf("%c",186);
 	}
 	
 	// vertikal kiri box
 	for(int i=0;i<1;i++){ 					
-		gotoxy(0,29+i);
+		gotoxy(koordinat.a,koordinat.e+i);
 		printf("%c",186);
 	} 
 	
-	gotoxy(0,30);printf("%c",200); 			//Print Box Kotak kiri bawah
+	gotoxy(koordinat.a,koordinat.f);printf("%c",200); 			//Print Box Kotak kiri bawah
 	
 	//Print horizontal bawah atau garis box bawah
 	for(int i=0;i<119;i++)				
@@ -101,25 +186,25 @@ void boxmenu()
 		printf("%c",205);
 	}
 	
-	gotoxy(2,29);
+	gotoxy(koordinat.h,koordinat.e);
 	printf("CTRL_T");	
 	
-	gotoxy(11,29);
+	gotoxy(koordinat.i,koordinat.e);
 	printf("Save(Ctrl+S)");
 	
-	gotoxy(35,29);
+	gotoxy(koordinat.j,koordinat.e);
 	printf("Open File");
 	
-	gotoxy(56,29);
+	gotoxy(koordinat.k,koordinat.e);
 	printf("Rename File");
 	
-	gotoxy(79,29);
+	gotoxy(koordinat.l,koordinat.e);
 	printf("Remove File");
 		
-	gotoxy(101,29);
+	gotoxy(koordinat.m,koordinat.e);
 	printf("Help");
 	
-	gotoxy(115,29);
+	gotoxy(koordinat.n,koordinat.e);
 	printf("Exit");
 }
 
@@ -127,38 +212,37 @@ void boxmenu()
 int BoxPilihMenu()
 {
 	int Set[]={7,7,7,7,7,7};
-	int counter= 2;
+	int counter = 2;
 	char key;
+	
+	/* Proses menampilkan box menu */
+	boxmenu();	
 	
 	for (int i=0 ;;)
 	{
-		/* Proses menampilkan box menu */
-		boxmenu();
-		
-		gotoxy(11,29);
+		gotoxy(koordinat.i,koordinat.e);
 		color(Set[0]);
 		printf("Save(Ctrl+S)");
 		
-		gotoxy(35,29);
+		gotoxy(koordinat.j,koordinat.e);
 		color(Set[1]);
 		printf("Open File");
 		
-		gotoxy(56,29);
+		gotoxy(koordinat.k,koordinat.e);
 		color(Set[2]);
 		printf("Rename File");
 		
-		gotoxy(79,29);
+		gotoxy(koordinat.l,koordinat.e);
 		color(Set[3]);
 		printf("Remove File");
 			
-		gotoxy(101,29);
+		gotoxy(koordinat.m,koordinat.e);
 		color(Set[4]);
 		printf("Help");
 		
-		
-		gotoxy(115,29);
+		gotoxy(koordinat.n,koordinat.e);
 		color(Set[5]);
-		printf("Exit");	
+		printf("Exit");
 
 		key= _getch();
 		
