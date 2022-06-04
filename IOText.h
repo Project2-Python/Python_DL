@@ -44,6 +44,9 @@ enum KeyInput{
 
 
 //Procedure And Function
+char getData();
+int getkoordinatY();
+int getkoordinatX(); 
 address Alokasi();
 void Inisialisasi();
 void Insertion(int data);
