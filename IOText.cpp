@@ -381,7 +381,7 @@ void keyProsess()
 			}
 			else if(menu == 5)
 			{
-				
+				MenuAturan();
 			}
 			else if(menu == 6)
 			{

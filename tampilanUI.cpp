@@ -155,6 +155,7 @@ int BoxPilihMenu()
 		color(Set[4]);
 		printf("Help");
 		
+		
 		gotoxy(115,29);
 		color(Set[5]);
 		printf("Exit");	
@@ -237,4 +238,25 @@ int BoxPilihMenu()
 			Set[5]= 12;// 12 Colour is red 
 		}	
 	}
+}
+
+void MenuAturan()
+{
+	FILE* file;
+	
+	//variabel length adalah variabel lokal bertipe array of char untuk memberi batas char dari file yang dibuka
+	char length[6000];
+	
+	file=fopen("help.txt","r");
+	
+	system ("cls");
+	while(fgets(length,6000,file)!=NULL){
+		printf("%s", length);
+	}
+	
+	fclose(file);
+	printf("Tekan apapun untuk kembali ke menu utama.. "); 
+	getch();
+	system ("cls");
+
 }

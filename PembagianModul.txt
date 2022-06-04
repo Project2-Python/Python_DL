@@ -1,0 +1,35 @@
+			
+Irfan
+- screenBuffer( )
+- screenSize( )
+- boxTampilanAwalApp( )
+- BoxPilihMenu( )
+- color( )
+
+Wildan
+- Insertion
+- boxTampilanAwalApp( )
+- UpDownLink( )
+- Print_Text( )
+- swap( )
+
+Hilman
+- keyProsess( )
+- saveFile( )
+- Deletion( )
+- openFile( )
+- setCursor( )	
+
+Aprillia
+- MoveCursor( )
+- MenuAturan( )
+- renameFile( )
+- removeFile( )
+
+Andhika
+- Alokasi( )
+- Inisialisasi( )
+- createFile( )	
+- getNameFile( )	
+
+
