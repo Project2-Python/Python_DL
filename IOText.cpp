@@ -64,6 +64,7 @@ void Insertion(int data)
 		nodeBaru->left = temp;
 		editor.head_of_notepad = temp;
 		editor.cursor = nodeBaru;
+		printf("%c", nodeBaru->data);
 		
 	}
 	else if (editor.cursor->right!=NULL)
@@ -97,9 +98,6 @@ void Insertion(int data)
 					printfromhead = printfromhead->right;
 				}
 			}
-			
-			printf("%c", tempformidinsert->data);
-		
 			if (tempformidinsert->right == NULL)
 			{
 				break;
@@ -123,7 +121,8 @@ void Insertion(int data)
 			tempformidinsert->left = nodeBaru;
 			editor.cursor = editor.cursor->right;
 		}
-	
+		
+		Print_Text(editor.cursor);
 	}
 	else
 	{
@@ -149,8 +148,8 @@ void Insertion(int data)
 			temp->right = nodeBaru;
 		}
 		editor.cursor = nodeBaru;
+		printf("%c", nodeBaru->data);
 	}
-	printf("%c", nodeBaru->data);
 	UpDownLink(nodeBaru, nodeBaru->data);
 	
 }
@@ -245,6 +244,31 @@ void MoveCursor()
 }
 
 
+void Print_Text(address temp)
+{
+	
+	address ptr = temp;
+	while (ptr != NULL)
+		{
+		if (ptr->data == '\0')
+		{
+			printf("");
+		}
+		else if(ptr->data == '\n')
+		{
+			printf("\n");
+		}
+		else
+		{
+			printf("%c",ptr->data);
+		}
+				
+		ptr = ptr->right;
+	}
+
+}
+
+
 void setCursor()
 	{
 		editor.destcord.X = 0;
@@ -306,6 +330,11 @@ void keyProsess()
 		{
 	  		Deletion();
 	  		editor.Modifier = 1; 
+	  		system("cls");
+  			editor.destcord.X = 0;
+			editor.destcord.Y = 1;
+			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), editor.destcord);
+	  		Print_Text(editor.head_of_notepad);
 	  	
 	  	} 
 		else if ((int)data == -32)                  // Arrow key
@@ -373,10 +402,6 @@ void keyProsess()
 void Deletion()
 {
 	address tempfordel = editor.cursor;
-	
-	editor.destcord.X -= 1;
-	SetConsoleCursorPosition(editor.hstdout, editor.destcord);
-	printf(" ");
 	
 	if (editor.cursor == editor.head_of_notepad)
 		return;

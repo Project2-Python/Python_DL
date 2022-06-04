@@ -47,6 +47,7 @@ enum KeyInput{
 address Alokasi();
 void Inisialisasi();
 void Insertion(int data);
+void Print_Text(address temp);
 void setCursor();
 void keyProsess();
 void Deletion();
