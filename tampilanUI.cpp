@@ -171,6 +171,29 @@ void setKoordinatBox(char data, int before, int after)
 		koordinat.e++;
 		koordinat.f++;
 	}
+	else if(getkoordinatY() >= 26 && data == '\b' && before != after)
+	{
+		short data = koordinat.d-1;
+
+		for(int o=0; o < 4; o++)
+		{
+			COORD line{ 0, data++ };
+	        setCursorXY( line );
+	        clearScreen( line );
+		}
+		if(getkoordinatY() == 26)
+		{
+			koordinat.d = 28;
+			koordinat.e = 29;
+			koordinat.f = 30;
+		}
+		else 
+		{
+			koordinat.d--;
+			koordinat.e--;
+			koordinat.f--;
+		}
+	}
 }
 
 
