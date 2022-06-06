@@ -27,8 +27,8 @@ struct box{
 int getbarisBox();
 int getkolomBox();
 void setKoordinatBox(char data, int before, int after);
-void setCursor();
-void clearScreen();
+void setCursorXY(COORD cursor);
+void clearScreen(COORD startPoint);
 void screenSize();
 void screenBuffer();
 void boxTampilanAwalApp(); 

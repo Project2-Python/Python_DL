@@ -15,13 +15,13 @@ int getkolomBox()
 }
 
 
-void setCursor(COORD cursor)
+void setCursorXY(COORD cursor)
 {
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursor);
 }
 
 
-void clearScreen(COORD startPoint = {0,0})
+void clearScreen(COORD startPoint)
 {
 	CONSOLE_SCREEN_BUFFER_INFO info;
 	
@@ -34,7 +34,7 @@ void clearScreen(COORD startPoint = {0,0})
 	FillConsoleOutputCharacter( console, ' ', info.dwSize.X, startPoint, &written );
 	FillConsoleOutputAttribute( console, FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE, info.dwSize.X, startPoint, &written );
 	
-	setCursor(startPoint);
+	setCursorXY(startPoint);
 }
 
 
@@ -158,7 +158,7 @@ void setKoordinatBox(char data, int before, int after)
 		for(int o=0; o < 3; o++)
 		{
 			COORD line{ 0, data++ };
-	        setCursor( line );
+	        setCursorXY( line );
 	        clearScreen( line );
 		}
 		

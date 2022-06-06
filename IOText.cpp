@@ -114,7 +114,14 @@ void Insertion(int data)
 			swap(&nodeBaru->data, &tempformidinsert->data);
 			if(tempformidinsert->data == '\n')
 			{
-				system("cls");
+				short data = 1;
+
+				for(int i=0; i < getbarisBox()-2; i++)
+				{
+					COORD line{ 0, data++ };
+			        setCursorXY( line );
+			        clearScreen( line );
+				}
 				
 				editor.destcord.X = 0;
 				editor.destcord.Y = 1;
@@ -405,7 +412,6 @@ void keyProsess()
 			{
 				gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Belum Di Save");
 				Sleep(2000);
-				gotoxy(getkolomBox()+1,getbarisBox()-1);	system("pause");
 				gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
 			}
 			else if(menu == 2)
@@ -483,7 +489,14 @@ void Deletion()
 		printf(" ");
 		if(tempfordel->data == '\n')
 		{
-			system("cls");
+			short data = 1;
+
+			for(int i=0; i < getbarisBox()-2; i++)
+			{
+				COORD line{ 0, data++ };
+		        setCursorXY( line );
+		        clearScreen( line );
+			}
 			
 			editor.destcord.X = 0;
 			editor.destcord.Y = 1;

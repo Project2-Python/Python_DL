@@ -36,6 +36,8 @@ void saveFile(address* AwalNotepad)
 	
 	fp = fopen(File.namaFile,"w");
 	
+	gotoxy(60,0); printf("%s", getNameFile());
+	
 	while (ptr != NULL)
 	{
 		fprintf(fp,"%c",ptr->data);
