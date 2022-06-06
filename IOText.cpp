@@ -345,7 +345,7 @@ void keyProsess()
 {
 
 	char data;
-	char filename[25];
+	//char filename[25];
 	int before, current; 
 
 	editor.Modifier = 0;
@@ -358,6 +358,7 @@ void keyProsess()
 	
 	gotoxy(60,0); printf("%s", getNameFile());
 	
+	editor :
 	while(1)
 	{ 
 		
@@ -423,10 +424,12 @@ void keyProsess()
 			else if(menu == 3)
 			{
 				renameFile();
+				goto editor;
 			}
 			else if(menu == 4)
 			{
 				removeFile();
+				goto editor;
 			}
 			else if(menu == 5)
 			{
