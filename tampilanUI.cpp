@@ -14,6 +14,11 @@ int getkolomBox()
 	return koordinat.a;
 }
 
+int getkolomBoxAkhir()
+{
+	return koordinat.g;
+}
+
 
 void setCursorXY(COORD cursor)
 {

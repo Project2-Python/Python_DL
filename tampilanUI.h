@@ -26,6 +26,7 @@ struct box{
 
 int getbarisBox();
 int getkolomBox();
+int getkolomBoxAkhir();
 void setKoordinatBox(char data, int before, int after);
 void setCursorXY(COORD cursor);
 void clearScreen(COORD startPoint);
