@@ -3,7 +3,6 @@
 #include "kelolafile.h"
 
 
-
 char getDataNode()
 {
 	address temp = editor.head_of_notepad;
@@ -155,18 +154,42 @@ void Insertion(int data)
 			nodeBaru->right = NULL;
 			tempformidinsert->right = nodeBaru;
 			editor.cursor = editor.cursor->right;
+			Print_Text(editor.cursor);
 		
 		}
 		else
 		{
+				
 			nodeBaru->left = tempformidinsert->left;
 			nodeBaru->left->right = nodeBaru;
 			nodeBaru->right = tempformidinsert;
 			tempformidinsert->left = nodeBaru;
 			editor.cursor = editor.cursor->right;
+			
+			if(nodeBaru->data == '\n')
+			{
+				short data = 1;
+
+				for(int i=0; i < getbarisBox()-2; i++)
+				{
+					COORD line{ 0, data++ };
+			        setCursorXY( line );
+			        clearScreen( line );
+				}
+				
+				editor.destcord.X = 0;
+				editor.destcord.Y = 1;
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), editor.destcord);
+				Print_Text(editor.head_of_notepad);
+			}
+			else
+			{
+				Print_Text(editor.cursor);
+			}
+			
 		}
 		
-		Print_Text(editor.cursor);
+		
 	}
 	else
 	{
@@ -298,10 +321,6 @@ void Print_Text(address temp)
 		{
 			printf("");
 		}
-		else if(ptr->data == '\n')
-		{
-			printf("\n");
-		}
 		else
 		{
 			printf("%c",ptr->data);
@@ -369,7 +388,7 @@ void keyProsess()
 		SetConsoleCursorPosition(editor.hstdout, editor.destcord);
 	  	
 		/* Proses pengisian inputan keyboard */
-		data = _getch();
+			data = _getch();
 		
 				
 		/* Proses pengecekan inputan keyboard */
