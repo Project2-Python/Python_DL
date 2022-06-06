@@ -5,6 +5,7 @@
 #include <windows.h>
 #include <conio.h>
 
+
 struct box{
 	int a = 0;
 	int b = 1;
@@ -23,6 +24,9 @@ struct box{
 	
 };
 
+int getbarisBox();
+int getkolomBox();
+void setKoordinatBox(char data, int before, int after);
 void setCursor();
 void clearScreen();
 void screenSize();

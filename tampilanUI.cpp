@@ -3,6 +3,18 @@
 
 struct box koordinat; 
 
+int getbarisBox()
+{
+	return koordinat.d;
+}
+
+
+int getkolomBox()
+{
+	return koordinat.a;
+}
+
+
 void setCursor(COORD cursor)
 {
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursor);
@@ -78,17 +90,10 @@ void gotoxy(int x, int y)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), koordinat); 
 }
 
-
-void boxmenu()
-{ 
-	
-	/* Ubah warna tampilan menjadi warna default (putih) */
-	color(7);
-	
-	if(getkoordinatX() % 120 == 0 && getkoordinatX() != 0)
+void setKoordinatBox(char data, int before, int after)
+{
+	if(getkoordinatX() % 120 == 0 && getkoordinatX() != 0 && data != '\b')
 	{
-		
-		
 		koordinat.a += 120;
 		koordinat.b += 120;
 		koordinat.c += 120;
@@ -100,15 +105,36 @@ void boxmenu()
 		koordinat.l += 120;
 		koordinat.m += 120;
 		koordinat.n += 120;
+	}
+	else if(getkoordinatX() % 120 == 0 && getkoordinatX() != 0 && (data == '\b' || (int)data == -32))
+	{
+		koordinat.a -= 120;
+		koordinat.b -= 120;
+		koordinat.c -= 120;
+		koordinat.g -= 120;
+		koordinat.h -= 120;
+		koordinat.i -= 120;
+		koordinat.j -= 120;
+		koordinat.k -= 120;
+		koordinat.l -= 120;
+		koordinat.m -= 120;
+		koordinat.n -= 120;
+	}
+	else if(getkoordinatX() % 120 != 0 && (data == '\b' || (int)data == 75) && before != after)
+	{
+		int dataKoordinat = getkoordinatX()-(getkoordinatX() % 120);
 		
-		short data = koordinat.d;
-	
-		for(int i=0; i < 3; i++)
-		{
-			COORD line{ 0, data++ };
-	        setCursor( line );
-	        clearScreen( line );
-		}
+		koordinat.a += dataKoordinat;
+		koordinat.b += dataKoordinat;
+		koordinat.c += dataKoordinat;
+		koordinat.g += dataKoordinat; 
+		koordinat.h += dataKoordinat;
+		koordinat.i += dataKoordinat;
+		koordinat.j += dataKoordinat;
+		koordinat.k += dataKoordinat;
+		koordinat.l += dataKoordinat;
+		koordinat.m += dataKoordinat;
+		koordinat.n += dataKoordinat; 
 	}
 	else if(getkoordinatX() < 120)
 	{
@@ -123,28 +149,31 @@ void boxmenu()
 		koordinat.l = 79;
 		koordinat.m = 101;
 		koordinat.n = 115; 
-		
-		short data = koordinat.d;
+	}
 	
-		for(int i=0; i < 3; i++)
+	if(getkoordinatY() >= 26 && data == '\r')
+	{
+		short data = koordinat.d;
+
+		for(int o=0; o < 3; o++)
 		{
 			COORD line{ 0, data++ };
 	        setCursor( line );
 	        clearScreen( line );
 		}
-	} 
-	
-	
-	if(getkoordinatY() >= 26 && getData() == '\n')
-	{
-		
 		
 		koordinat.d++;
 		koordinat.e++;
 		koordinat.f++;
-		
 	}
+}
+
+
+void boxmenu()
+{ 
 	
+	/* Ubah warna tampilan menjadi warna default (putih) */
+	color(7);
 	
 	gotoxy(koordinat.a,koordinat.d); printf("%c",201); 		// box atas Kiri
 	gotoxy(koordinat.g,koordinat.d); printf("%c",187); 		// box atas Kanan

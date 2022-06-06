@@ -2,9 +2,17 @@
 #include "tampilanUI.h"
 #include "kelolafile.h"
 
-char getData()
+
+
+char getDataNode()
 {
 	address temp = editor.head_of_notepad;
+	
+	if(temp == NULL)
+	{
+		return NULL;
+	}
+	
 	while(temp != NULL)
 	{
 		if(temp->right == NULL)
@@ -12,16 +20,15 @@ char getData()
 			break;
 		}
 		temp = temp->right;
-		
 	}
 	
 	if(temp->data == '\n')
 	{
 		return temp->data;
 	}
-	
-	
 }
+
+
 int getkoordinatY()
 {
 	return editor.destcord.Y;
@@ -332,6 +339,7 @@ void keyProsess()
 
 	char data;
 	char filename[25];
+	int before, current; 
 
 	editor.Modifier = 0;
 	
@@ -355,11 +363,13 @@ void keyProsess()
 		/* Proses pengisian inputan keyboard */
 		data = _getch();
 		
+				
 		/* Proses pengecekan inputan keyboard */
 	  	if( data == '\b')							// backspace
 		{
 	  		Deletion();
 	  		editor.Modifier = 1; 
+	  		gotoxy(0,0); printf("[*]");
 	  	
 	  	} 
 		else if ((int)data == -32)                  // Arrow key
@@ -370,6 +380,7 @@ void keyProsess()
 		{
 	  		saveFile(&editor.head_of_notepad);
 	  		editor.Modifier = 0;
+	  		gotoxy(0,0); printf("   ");
 	 	} 
 	 	else if(data == CTRL_Q || data == ESC)
 	 	{
@@ -392,6 +403,13 @@ void keyProsess()
 	  			editor.Modifier = 0;
 				
 			} 
+			else if(editor.Modifier == 1)
+			{
+				gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Belum Di Save");
+				Sleep(2000);
+				gotoxy(getkolomBox()+1,getbarisBox()-1);	system("pause");
+				gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+			}
 			else if(menu == 2)
 			{
 				openFile();
@@ -417,9 +435,12 @@ void keyProsess()
 		{	  	
 	  		Insertion(data);
 	  		editor.Modifier = 1;
+	  		gotoxy(0,0); printf("[*]");
 	  	}
-	  	gotoxy(60,0); printf("%s", getNameFile());
+	  	before = getkoordinatY();
 		setCursor();
+		current = getkoordinatY();
+		setKoordinatBox(data, before, current);
 	}
 }
 
