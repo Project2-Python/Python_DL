@@ -158,9 +158,9 @@ void setKoordinatBox(char data, int before, int after)
 	
 	if(getkoordinatY() >= 26 && data == '\r')
 	{
-		short data = koordinat.d;
+		short data = koordinat.d-1;
 
-		for(int o=0; o < 3; o++)
+		for(int o=0; o < 4; o++)
 		{
 			COORD line{ 0, data++ };
 	        setCursorXY( line );
