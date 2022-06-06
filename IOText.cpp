@@ -376,6 +376,7 @@ void keyProsess()
 		{
 	  		Deletion();
 	  		editor.Modifier = 1; 
+	  		gotoxy(0,0); printf("[*]");
 	  	
 	  	} 
 		else if ((int)data == -32)                  // Arrow key
@@ -386,6 +387,7 @@ void keyProsess()
 		{
 	  		saveFile(&editor.head_of_notepad);
 	  		editor.Modifier = 0;
+	  		gotoxy(0,0); printf("   ");
 	 	} 
 	 	else if(data == CTRL_Q || data == ESC)
 	 	{
@@ -428,7 +430,7 @@ void keyProsess()
 			}
 			else if(menu == 5)
 			{
-				
+				MenuAturan();
 			}
 			else if(menu == 6)
 			{
@@ -439,6 +441,7 @@ void keyProsess()
 		{	  	
 	  		Insertion(data);
 	  		editor.Modifier = 1;
+	  		gotoxy(0,0); printf("[*]");
 	  	}
 	  	before = getkoordinatY();
 		setCursor();
