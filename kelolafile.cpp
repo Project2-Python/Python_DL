@@ -13,9 +13,9 @@ char *getNameFile()
 void createFile()
 {
 	
-	gotoxy(1,27);	printf("Masukkan nama file : ");
+	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Masukkan nama file : ");
 	scanf("%s",File.namaFile);
-	gotoxy(1,27);	printf("                                                                   ");
+	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
 	
 	File.isFileEmpty = 0;
 }
@@ -52,19 +52,49 @@ void removeFile(){
 	int status;
 	char filename[20];
 	
-	printf("\t\tMasukan Nama File :");
+	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Masukkan nama file : ");
 	scanf("%s",filename);
+	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
 	
-	status=remove(filename);
-	
-	if(status!= 0)
+	if(File.isFileEmpty == 0)
 	{
-		printf("\t\tFile Tidak Terhapus");
-	}
+		if(strcmp(File.namaFile, filename) == 0)
+		{
+			
+		}
+		else
+		{
+			status=remove(filename);
+	
+			if(status != 0)
+			{
+				gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("File Tidak Terhapus");
+				gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+			}
+			else
+			{
+				gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("File Terhapus");
+				gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+			}
+		}
+	} 
 	else
 	{
-		printf("\t\tFile Terhapus");
+		status=remove(filename);
+	
+		if(status != 0)
+		{
+			gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("File Tidak Terhapus");
+			gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+		}
+		else
+		{
+			gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("File Terhapus");
+			gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+		}
 	}
+	
+	
 }
 
 
@@ -73,22 +103,65 @@ void renameFile()
     char oldName[100], newName[100];
 	char filename[20];
     
-    printf("\t\tMasukan nama file yang ingin diubah: ");
+    gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Masukkan Nama File Lama : ");
     scanf("%s", oldName);
-
-    printf("\t\tMasukkan nama baru untuk file ini: ");
-    scanf("%s", newName);
-
-    if (rename(oldName, newName) == 0)
+    gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+    
+    if(File.isFileEmpty == 0)
     {
-    printf("\t\tNama file berhasil diubah.\n");
-    }
-    else
-    {
-    printf("\t\tError! Tidak dapat mengganti nama file ini.\n");
-    }
- 	printf("\t\t"); system("pause");
- 
+    	if(strcmp(File.namaFile, oldName) == 0)
+    	{
+    		
+		}
+		else
+		{
+			gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Masukkan Nama File Baru : ");
+		    scanf("%s", newName);
+		    gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+		    
+		    if(strcmp(File.namaFile, newName) == 0)
+		    {
+		    	
+			}
+			else
+			{
+				if (rename(oldName, newName) == 0)
+			    {
+			    	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Berhasil Diubah");
+			    	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+			    }
+			    else
+			    {
+			    	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Tidak Berhasil");
+			    	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+			    }
+			}
+		}
+	}
+	else
+	{
+		gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Masukkan Nama File Baru : ");
+	    scanf("%s", newName);
+	    gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+	    
+	    if(strcmp(File.namaFile, newName) == 0)
+	    {
+	    	
+		}
+		else
+		{
+			if (rename(oldName, newName) == 0)
+		    {
+		    	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Berhasil Diubah");
+		    	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+		    }
+		    else
+		    {
+		    	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Tidak Berhasil");
+		    	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+		    }
+		}
+	} 
 }
 
 
@@ -98,16 +171,18 @@ void openFile(){
 	address feditor;
 	char c, fileName[25];
 	
-	gotoxy(1,27);	printf("Masukkan nama file : ");
+	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Masukkan Nama File : ");
 	scanf("%s",fileName);
-	gotoxy(1,27);	printf("                                                                   ");
+	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
 	
 	fedit = fopen(fileName,"r");
 	if(fedit == NULL)
 	{
-		
-		printf("\t\tFile tidak ada");
-		system("\t\tpause");
+		gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("File Tidak Ada");
+		Sleep(2000);
+		gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+		gotoxy(getkolomBox()+1,getbarisBox()-1);	system("pause");
+		gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
 		File.isFileEmpty = 1;
 	} 
 	else
