@@ -1,0 +1,23 @@
+=======================================================================================================================
+|                                                         HELP             		                       		                                                                                                           |
+|                                                       PYTHOR							   			                                                                             |		
+|                                                (Python Text Editor)						   			                                                                             |
+=======================================================================================================================
+|  Pythor adalah suatu program komputer yang digunakan untuk membuat, mengubah, mengedit, ataupun menyimpan suatu text                                             |                                                                                                                      
+|  ke dalam file. 	                                                                                                                                                                                                               |
+|								           						                                                                                       |
+|  Pythor dibuat oleh tim python yang beranggotakan :   							   				                                               |						
+|  1. Aprillia Rahmawati											   					                                               |	
+|  2. Hilman Permana											   					                                               |	
+|  3. Irfan Khoerul Mupid											   					                                               |
+|  4. Muhammad Andhika Prasetya										   				                                               |
+|  5. Wildan Setya Nugraha											   				                                               |
+=======================================================================================================================
+|  Fitur Pythor :												   					                                               |	
+|  1. Save File         -> untuk menyimpan file                     -> tekan CTRL_S						   			                                     |
+|  2. Open File         -> untuk membuka file                      						   			                                                                   |						  
+|  3. Rename File    -> untuk mengganti nama file             						   			                                                                   |
+|  4. Remove File    -> untuk menghapus file                     						   			                                                                   |
+|  5. Help                -> untuk panduan penggunaan pythor  						   			                                                                   |
+|  6. Exit    	         -> untuk keluar dari progam pythor       -> tekan CTRL_Q						   			                                     |
+=======================================================================================================================

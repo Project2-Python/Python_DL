@@ -364,8 +364,8 @@ void keyProsess()
 {
 
 	char data;
-	//char filename[25];
 	int before, current; 
+	static int time_quit = QUIT;
 
 	editor.Modifier = 0;
 	
@@ -411,13 +411,17 @@ void keyProsess()
 	 	} 
 	 	else if(data == CTRL_Q || data == ESC)
 	 	{
-	 		if (editor.Modifier == 1)
+	 		color(7);
+	 		if (editor.Modifier && time_quit > 0)
 	 		{
-	 			printf("Belum di save\n");
+	 			gotoxy(1,getbarisBox()-1); 	printf("%d Belum Di Save", time_quit);
+	 			Sleep(1000);
+	 			gotoxy(1,getbarisBox()-1);	printf("                                                                   ");
+	 			time_quit--;
 			}
-			else 
+			else
 			{
-				exit(1);
+				gotoxy(1,getbarisBox()+7); exit(1);
 			}
 		}
 		else if(data == CTRL_T) 
@@ -456,7 +460,17 @@ void keyProsess()
 			}
 			else if(menu == 6)
 			{
-				
+				if (editor.Modifier && time_quit > 0)
+		 		{
+		 			color(7);
+		 			gotoxy(1,getbarisBox()-1); 	printf("%d Belum Di Save", time_quit);
+		 			time_quit--;
+				}
+				else
+				{
+					color(7);
+					gotoxy(1,getbarisBox()+7); exit(1);
+				}
 			}
 		}
 	  	else 
@@ -552,6 +566,8 @@ void Deletion()
 		delete tempfordel;
 	}
 }
+
+
 	
 	
 void swap(char *data1, char *data2)

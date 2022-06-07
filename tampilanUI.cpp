@@ -388,7 +388,7 @@ void MenuAturan()
 	//variabel length adalah variabel lokal bertipe array of char untuk memberi batas char dari file yang dibuka
 	char length[6000];
 	
-	file=fopen("help.txt","r");
+	file=fopen("help(1).txt","r");
 	
 	system ("cls");
 	while(fgets(length,6000,file)!=NULL){

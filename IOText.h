@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <conio.h>
 
-
+#define QUIT 3
 
 typedef struct node* address;
 typedef struct node
