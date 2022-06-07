@@ -20,7 +20,7 @@ struct box{
 	int k = 56;
 	int l = 79;
 	int m = 101;
-	int n = 115; 
+	int n = 112; 
 	
 };
 

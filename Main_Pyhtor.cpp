@@ -4,7 +4,7 @@
 
 
 
-int main()
+int main(int argc, char *argv[])
 {
 	/* Proses Mengubah layar console */
 	screenBuffer();
@@ -19,6 +19,8 @@ int main()
 	
 	/* Proses Insertion / Proses edit text */
 	color(7);
+	if(argv[1] != NULL)
+		openFile(true, argv[1]);
 	keyProsess();
 
 	return 0;

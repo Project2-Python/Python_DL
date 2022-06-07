@@ -17,7 +17,7 @@ void createFile();
 void saveFile(address* AwalNotepad);
 void removeFile();
 void renameFile();
-void openFile();
+void openFile(bool isTerminal, char fileName[25]);
 #endif
 
 

@@ -262,7 +262,7 @@ void boxmenu()
 	printf("Help");
 	
 	gotoxy(koordinat.n,koordinat.e);
-	printf("Exit");
+	printf("CTRL_Q");
 }
 
 
@@ -299,16 +299,16 @@ int BoxPilihMenu()
 		
 		gotoxy(koordinat.n,koordinat.e);
 		color(Set[5]);
-		printf("Exit");
+		printf("CTRL_Q");
 
 		key= _getch();
 		
-		if(key == 75 && (counter>1 && counter <=6)) 		//72 = Arow left
+		if(key == 75 && (counter>1 && counter <=5)) 		//72 = Arow left
 		{
 			counter = counter - 1;
 		}
 		
-		if(key == 77 && (counter>=1 && counter <6)) 		//77 = Arow Right
+		if(key == 77 && (counter>=1 && counter <5)) 		//77 = Arow Right
 		{
 			counter = counter + 1;
 		}
@@ -340,10 +340,6 @@ int BoxPilihMenu()
 				{
 					return 5;
 				}
-				if(counter == 6)
-				{
-					return 6; 
-				}
 			}
 			
 		//defaut white colour	
@@ -352,7 +348,6 @@ int BoxPilihMenu()
 		Set[2]= 7; 
 		Set[3]= 7; 
 		Set[4]= 7;
-		Set[5]= 7;
 				
 		if(counter == 1)
 		{
@@ -374,10 +369,6 @@ int BoxPilihMenu()
 		{
 			Set[4]= 12;// 12 Colour is red 
 		}
-		if(counter == 6)
-		{
-			Set[5]= 12;// 12 Colour is red 
-		}	
 	}
 }
 

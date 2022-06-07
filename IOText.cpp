@@ -3,31 +3,6 @@
 #include "kelolafile.h"
 
 
-char getDataNode()
-{
-	address temp = editor.head_of_notepad;
-	
-	if(temp == NULL)
-	{
-		return NULL;
-	}
-	
-	while(temp != NULL)
-	{
-		if(temp->right == NULL)
-		{
-			break;
-		}
-		temp = temp->right;
-	}
-	
-	if(temp->data == '\n')
-	{
-		return temp->data;
-	}
-}
-
-
 int getkoordinatY()
 {
 	return editor.destcord.Y;
@@ -421,7 +396,7 @@ void keyProsess()
 			}
 			else
 			{
-				gotoxy(1,getbarisBox()+7); exit(1);
+				system("cls"); exit(1);
 			}
 		}
 		else if(data == CTRL_T) 
@@ -442,7 +417,8 @@ void keyProsess()
 			}
 			else if(menu == 2)
 			{
-				openFile();
+				char fileName[25];
+				openFile(false, fileName);
 			}
 			else if(menu == 3)
 			{
@@ -458,19 +434,9 @@ void keyProsess()
 			{
 				MenuAturan();
 			}
-			else if(menu == 6)
+			else if(menu == CTRL_T)
 			{
-				if (editor.Modifier && time_quit > 0)
-		 		{
-		 			color(7);
-		 			gotoxy(1,getbarisBox()-1); 	printf("%d Belum Di Save", time_quit);
-		 			time_quit--;
-				}
-				else
-				{
-					color(7);
-					gotoxy(1,getbarisBox()+7); exit(1);
-				}
+				goto editor;
 			}
 		}
 	  	else 

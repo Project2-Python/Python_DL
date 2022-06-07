@@ -167,16 +167,19 @@ void renameFile()
 }
 
 
-void openFile(){
+void openFile(bool isTerminal, char fileName[25]){
 	
 	FILE *fedit;
 	address feditor;
-	char c, fileName[25];
+	char c;
 	
-	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Masukkan Nama File : ");
-	scanf("%s",fileName);
-	gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
-	
+	if(isTerminal == false)
+	{
+		char openName[25];
+		gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("Masukkan Nama File : ");
+		scanf("%s",fileName);
+		gotoxy(getkolomBox()+1,getbarisBox()-1);	printf("                                                                   ");
+	}
 	fedit = fopen(fileName,"r");
 	if(fedit == NULL)
 	{

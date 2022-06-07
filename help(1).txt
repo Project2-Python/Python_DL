@@ -1,5 +1,5 @@
 =======================================================================================================================
-|                                                         HELP             		                       		                                                                                                           |
+|                                                        HELP             		                       		                                                                                                           |
 |                                                       PYTHOR							   			                                                                             |		
 |                                                (Python Text Editor)						   			                                                                             |
 =======================================================================================================================
@@ -16,8 +16,8 @@
 |  Fitur Pythor :												   					                                               |	
 |  1. Save File         -> untuk menyimpan file                     -> tekan CTRL_S						   			                                     |
 |  2. Open File         -> untuk membuka file                      						   			                                                                   |						  
-|  3. Rename File    -> untuk mengganti nama file             						   			                                                                   |
-|  4. Remove File    -> untuk menghapus file                     						   			                                                                   |
-|  5. Help                -> untuk panduan penggunaan pythor  						   			                                                                   |
-|  6. Exit    	         -> untuk keluar dari progam pythor       -> tekan CTRL_Q						   			                                     |
+|  3. Rename File       -> untuk mengganti nama file             						   			                                                                   |
+|  4. Remove File       -> untuk menghapus file                     						   			                                                                   |
+|  5. Help              -> untuk panduan penggunaan pythor  						   			                                                                   |
+|  6. Exit    	      -> untuk keluar dari progam pythor          -> tekan CTRL_Q						   			                                     |
 =======================================================================================================================
