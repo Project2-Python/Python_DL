@@ -1,6 +1,6 @@
 # PYTHON_DL
 
-<a href="https://github.com/Project2-Python/Python_DL"><img src="[https://i.postimg.cc/KYjQCcZ7/Salinan-dari-Software-Development-Business-Plan-by-Slidesgo.jpg]" alt="Python_DL" border="0"></a>
+<a href="https://github.com/Project2-Python/Python_DL"><img src="https://i.postimg.cc/KYjQCcZ7/Salinan-dari-Software-Development-Business-Plan-by-Slidesgo.jpg" alt="Python_DL" border="0"></a>
 
 PYTHOR is a simple yet dynamic text editor written in C by Python Team using Double Linked List. Pythor is used to create, open, edit, save, rename, and delete text file.
 
